@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="635ee5ce-78df-48bf-a7e0-18e7a0b74f44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Project/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/featured_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/featured_project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_comment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_comment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_donate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_donate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_picture.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_picture.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_rate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_rate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/tag.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/tag.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/migrations/0002_auto_20210403_1532.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/migrations/0003_auto_20210403_1538.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/models/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/category.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/models/user_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user_project.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/templates/project/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/templates/project/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crowdFunding/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +18,25 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1qcs2kLFsoL94FL2wDKYQ7Wf26j" />
   <component name="ProjectViewState">
@@ -28,9 +44,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Project/forms" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Project/forms" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Project/static/project/css" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Crowd-Funding" type="Python.DjangoServer" factoryName="Django server">
@@ -67,6 +94,7 @@
       <updated>1617390008927</updated>
       <workItem from="1617390013057" duration="1474000" />
       <workItem from="1617392103543" duration="2305000" />
+      <workItem from="1617473934907" duration="14563000" />
     </task>
     <servers />
   </component>
@@ -83,5 +111,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
