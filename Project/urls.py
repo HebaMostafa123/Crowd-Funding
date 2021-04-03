@@ -2,9 +2,11 @@ from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path
 from django.urls import path,include
-from . import views
+from .views import crowd_project
 
 urlpatterns = [
     # path('', include('Project.urls')),
-    path('home',views.index)
+    path('home',crowd_project.index),
+    path('project/list',crowd_project.project_list),
+    path('project/form',crowd_project.project_form)
 ]
