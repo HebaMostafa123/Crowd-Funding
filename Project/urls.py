@@ -8,5 +8,8 @@ urlpatterns = [
     # path('', include('Project.urls')),
     path('home',crowd_project.index),
     path('project/list',crowd_project.project_list),
-    path('project/form',crowd_project.project_form)
+    path('project/form',crowd_project.project_form),
+    url(r'^project/(?P<project_id>\d+)/edit$', crowd_project.edit, name='project_edit'),
+    url(r'^project/(?P<project_id>\d+)/update$', crowd_project.update, name='project_update'),
+    url(r'^project/(?P<project_id>\d+)/delete$', crowd_project.delete, name='project_delete'),
 ]
