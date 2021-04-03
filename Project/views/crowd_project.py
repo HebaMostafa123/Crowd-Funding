@@ -22,3 +22,4 @@ def project_form(request):
         
 def project_delete(request):
     return
+
