@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from Project.form import ProjectForm
+from Project.forms.project_form import ProjectForm
 from Project.models.user_project import UserProject
 def index(request):
      return HttpResponse("Hello world")
