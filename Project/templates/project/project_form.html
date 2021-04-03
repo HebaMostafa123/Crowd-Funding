@@ -1,6 +1,5 @@
 {% extends "project/base.html" %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <form action="" method="POST">
     {%csrf_token%}
@@ -10,4 +9,12 @@
 
 <input type="submit" class="btn btn-success offset-5 mt-2" value="submit">
 </form>
+<script type="text/javascript" src="/my_admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
 {% endblock content %}
+
