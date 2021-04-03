@@ -5,6 +5,7 @@ from Project.models.user_project import UserProject
 def index(request):
      return HttpResponse("Hello world")
 def project_list(request):
+    print(UserProject.objects.all())
     return render(request,"project/project_list.html",{'projects':UserProject.objects.all()})
 def project_form(request):
     if request.method == "GET":
