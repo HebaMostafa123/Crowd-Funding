@@ -1,16 +1,32 @@
+{% extends "registration/base.html" %}
+{% block title %} Login {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
 
 
-<h1>Login</h1>
 
 <br>
 
-<div class="form-group">
+<div class="container " style="text-align: center;margin: auto; width: 30%;border: 3px solid purple; padding: 65px;">
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary ">Login</button>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-secondary">Login</button>
+    </form>
 
-</form>
+    {% for message in messages %}
+    <p id="messages">{{message}}</p>
+    {% endfor %}
+
+    <div class="mt-4">
+        <div class="d-flex justify-content-center links">
+            Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+        </div>
+
+    </div>
 </div>
 
+{% endblock %}
