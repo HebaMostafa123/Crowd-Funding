@@ -24,7 +24,7 @@ def update(request, project_id):
     form = ProjectForm(request.POST, instance=project)
     if form.is_valid():
         form.save()
-        return render(request, "project/project_list.html",{'projects':UserProject.objects.all()})
+        return redirect("list")
     return render(request, 'project/edit.html', {'project': project})
 
 
@@ -39,9 +39,9 @@ def project_form(request):
         if form.is_valid():
             form.save()
             print("haha saved")
-        return redirect('/project/list')
+        return redirect('list')
 
 def delete(request, project_id):
     project = get_object_or_404(UserProject, id=project_id)
     project.delete()
-    return render(request, "project/project_list.html",{'projects':UserProject.objects.all()})
+    return redirect( "list")
