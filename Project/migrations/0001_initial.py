@@ -77,8 +77,9 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=200)),
                 ('details', models.TextField()),
                 ('total_target', models.DecimalField(decimal_places=2, max_digits=9)),
-                ('start_date', models.DateTimeField(null=True)),
-                ('end_date', models.DateTimeField(null=True)),
+
+                ('start_date', models.DateField(null=True)),
+                ('end_date', models.DateField(null=True)),
                 ('is_cancelled', models.BooleanField(default=False, null=True)),
                 ('created_at', models.DateTimeField(blank=True, default=datetime.datetime.now, null=True)),
                 ('updated_at', models.DateTimeField(null=True)),
