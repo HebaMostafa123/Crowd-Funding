@@ -1,0 +1,85 @@
+{% extends "project/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+   <h1>
+        {{ project.title }}
+    </h1>
+    <p>
+      {{ project.details }}
+    </p>
+    <h1>{{ project.total_target }}</h1>
+    <h1>{{ project.category }}</h1>
+{#<span class="fa fa-star checked"></span>#}
+{#<span class="fa fa-star checked"></span>#}
+{#<span class="fa fa-star checked"></span>#}
+{#<span class="fa fa-star checked"></span>#}
+{#<span class="fa fa-star"> </span>#}
+    <form action="{% url 'comment' %}"  method="POST">
+
+    {%csrf_token%}
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+    {{ form.name.errors }}
+    {{form|crispy}}
+    <input type="submit" class="btn btn-success offset-5 mt-2" value="comment">
+    </form>
+    <br>
+        <div class="row">
+        <div class="col-md-6">
+            <div class="card"><span>User rates</span>
+                <div class="card-body text-center"> <span class="myratings">  {{ rate }}</span>
+                    <h4 class="mt-1">Rate us</h4>
+                        <fieldset class="rating"> <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label> <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label> <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label> <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label> <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label> <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label> <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label> <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label> <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label> <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label> <input type="radio" class="reset-option" name="rating" value="reset" /> </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if project.user_comment.all %}
+        {% for comment in project.projectCommented.all%}
+            <h1>{{ comment.user}}</h1>
+            <h1>{{ comment}}</h1>
+            <br>
+        {% endfor %}
+
+    {% endif %}
+{#<div style="">#}
+{##}
+{#    <form action="" method="POST">#}
+{#    {%csrf_token%}#}
+{#    {{ reportForm.name.errors }}#}
+{#    {{reportForm|crispy}}#}
+{#    <input type="submit" class="btn btn-success offset-5 mt-2" value="report">#}
+{#    </form>#}
+{##}
+{#</div>#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    {#console.log(id)#}
+        $(document).ready(function(){
+var proectId = "{{ project.id }}"
+var userId = "{{ 1 }}"
+
+$("input[type='radio']").click(function() {
+    var rate = $("input[type='radio']:checked").val();
+    let data = {
+        proectId: proectId,
+        userId: userId,
+        rate: rate
+    }
+  $.ajax({
+        url: "/project/rate",
+        data: data ,
+        type: 'get',
+        success: function (data) {
+          if (data.is_taken) {
+            alert(data.error_message);
+          }
+        }
+      });
+
+
+})})
+    </script>
+{% endblock content %}

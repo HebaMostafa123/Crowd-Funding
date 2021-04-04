@@ -20,13 +20,18 @@ class UserProject(models.Model):
     created_at = models.DateTimeField(default=datetime.now, blank=True,null=True)
     updated_at = models.DateTimeField(null=True)
 
+    def __str__(self):
+        return self.title
+
 
 class ProjectComment(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="projectCommenter")
-    project= models.ForeignKey(UserProject, on_delete=models.CASCADE ,related_name="projectCommented")
-    comment_body= models.TextField()
+    project = models.ForeignKey(UserProject, on_delete=models.CASCADE ,related_name="projectCommented")
+    comment_body = models.TextField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.comment_body
 
 class ProjectReport(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="projectReporter")
@@ -38,9 +43,9 @@ class ProjectReport(models.Model):
 class ProjectRate(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE , related_name="projectRater")
     project= models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectRated")
-    rate= models.IntegerField()
+    rate= models.FloatField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(default=datetime.now)
 
 class ProjectDonation(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="projectDonnater")
