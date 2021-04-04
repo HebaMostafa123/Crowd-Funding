@@ -3,15 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="635ee5ce-78df-48bf-a7e0-18e7a0b74f44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/migrations/0002_auto_20210403_1532.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/migrations/0003_auto_20210403_1538.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/category.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/models/user_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user_project.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/templates/project/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/templates/project/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/templates/project/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/templates/project/show.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/views/showProject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/views/showProject.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +52,7 @@
       <recent name="$PROJECT_DIR$/Project/forms" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Project/static/project/javascript" />
       <recent name="$PROJECT_DIR$/Project/static/project/css" />
     </key>
   </component>
@@ -94,7 +91,7 @@
       <updated>1617390008927</updated>
       <workItem from="1617390013057" duration="1474000" />
       <workItem from="1617392103543" duration="2305000" />
-      <workItem from="1617473934907" duration="14563000" />
+      <workItem from="1617473934907" duration="20152000" />
     </task>
     <servers />
   </component>

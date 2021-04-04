@@ -12,5 +12,6 @@ urlpatterns = [
     path('project/form',crowd_project.project_form),
     url(r'^project/(?P<project_id>\d+)/$', showProject.show, name='item_read'),
     path('project/comment', showProject.comment, name='comment'),
+    url('project/rate', showProject.rate, name='comment'),
 
 ]

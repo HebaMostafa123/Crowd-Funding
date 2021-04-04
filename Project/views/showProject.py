@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from Project.forms.comment_form import ProjectCommentForm
-from Project.models.user_project import UserProject,ProjectComment
+from Project.models.user_project import UserProject,ProjectComment, ProjectRate
 from Project.forms.report_form import ProjectReportForm
 from datetime import datetime
 from django.db.models import Avg
@@ -23,7 +23,21 @@ def comment(request):
     comm = ProjectComment.objects.create(
         comment_body=request.POST.get('comment_body'), user_id=request.POST.get('user_id'),
         project_id=request.POST.get('project_id'),
-
     )
+
+    return HttpResponse("dona ya 7amdana")
+
+
+def rate(request):
+    if request.is_ajax():
+        previous_rate_count = ProjectRate.objects.filter(project_id=request.GET.get('proectId'), user_id=request.GET.get('userId')).count()
+        if previous_rate_count == 0:
+            rate = ProjectRate.objects.create(
+                rate=int(request.GET.get('rate')), user_id=request.GET.get('userId'),
+                project_id=request.GET.get('proectId'),
+            )
+        else:
+            previous_rate_count = ProjectRate.objects.filter(project_id=request.GET.get('proectId'),
+                                                             user_id=request.GET.get('userId')).update(rate=int(request.GET.get('rate')))
 
     return HttpResponse("dona ya 7amdana")

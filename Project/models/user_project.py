@@ -43,9 +43,9 @@ class ProjectReport(models.Model):
 class ProjectRate(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE , related_name="projectRater")
     project= models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectRated")
-    rate= models.IntegerField()
+    rate= models.FloatField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(default=datetime.now)
 
 class ProjectDonation(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="projectDonnater")
