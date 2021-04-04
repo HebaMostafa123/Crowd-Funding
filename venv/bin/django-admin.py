@@ -1,4 +1,4 @@
-#!/home/atef/AlSair/atef/ITI/django/Crowd-Funding/venv/bin/python
+#!/home/ahmed/PycharmProjects/django_projects/Crowd-Funding/venv/bin/python3
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

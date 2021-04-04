@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="635ee5ce-78df-48bf-a7e0-18e7a0b74f44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Project/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/featured_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/featured_project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_comment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_comment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_donate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_donate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_picture.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_picture.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_rate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_rate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/project_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/project_report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/tag.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/tag.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/models/user_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user_project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,5 +74,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
