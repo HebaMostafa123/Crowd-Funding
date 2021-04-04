@@ -1,6 +1,6 @@
 from django.db import models
 # from .user import CrowdUser
-from django.contrib.auth.models import User
+from User.models import User
 from .category import Category
 from datetime import datetime
 

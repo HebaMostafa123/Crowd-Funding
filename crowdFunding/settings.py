@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Project',
     'User',
-    'crispy_forms'
+    'crispy_forms',
+    'django_countries'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -72,6 +74,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'crowdFunding.wsgi.application'
+
+AUTH_USER_MODEL = 'User.User'
 
 
 # Database
@@ -125,3 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/project/list'
+LOGOUT_REDIRECT_URL = '/login'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+MEDIA_URL = '/media/' 
