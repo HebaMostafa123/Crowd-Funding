@@ -12,3 +12,6 @@ class CrowdUser(models.Model):
         created_at = models.DateTimeField(default=datetime.now, blank=True)
         updated_at = models.DateTimeField()
 
+        def __str__(self):
+                return self.first_name
+

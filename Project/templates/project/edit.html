@@ -2,14 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<form action="" method="POST">
+
+<form action="{% url 'project_update' project.id %}" method="POST">
     {%csrf_token%}
     {{ form.name.errors }}
 
     {{form|crispy}}
-    <label for="tag">tags</label>
-   <input type="text" name="tags">
 
 <input type="submit" class="btn btn-success offset-5 mt-2" value="submit">
 </form>
+
 {% endblock content %}
