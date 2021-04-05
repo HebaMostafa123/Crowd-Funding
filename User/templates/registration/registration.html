@@ -10,7 +10,7 @@
 
 <div class="container " style="text-align: center;margin: auto; width: 30%;border: 3px solid rgb(66, 100, 161); padding: 65px;">
     <h1>Registration</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-primary ">Register</button>
