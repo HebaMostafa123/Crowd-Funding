@@ -13,6 +13,8 @@ def show(request,project_id):
         form = ProjectCommentForm()
         reportForm = ProjectReportForm()
         rate = project.projectRated.all().aggregate(Avg('rate'))["rate__avg"]
+        if rate == None:
+            rate=0
 
 
         return render(request,"project/show.html",{'form':form,'reportForm':reportForm, 'project':project ,
@@ -33,11 +35,11 @@ def rate(request):
         previous_rate_count = ProjectRate.objects.filter(project_id=request.GET.get('proectId'), user_id=request.GET.get('userId')).count()
         if previous_rate_count == 0:
             rate = ProjectRate.objects.create(
-                rate=int(request.GET.get('rate')), user_id=request.GET.get('userId'),
+                rate=float(request.GET.get('rate')), user_id=request.GET.get('userId'),
                 project_id=request.GET.get('proectId'),
             )
         else:
             previous_rate_count = ProjectRate.objects.filter(project_id=request.GET.get('proectId'),
-                                                             user_id=request.GET.get('userId')).update(rate=int(request.GET.get('rate')))
+                                                             user_id=request.GET.get('userId')).update(rate=float(request.GET.get('rate')))
 
     return HttpResponse("dona ya 7amdana")
