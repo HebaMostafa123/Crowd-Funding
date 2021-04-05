@@ -38,7 +38,7 @@ class ProjectReport(models.Model):
     project= models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectReported")
     report_body= models.TextField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(default=datetime.now)
 
 class ProjectRate(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE , related_name="projectRater")
@@ -52,4 +52,4 @@ class ProjectDonation(models.Model):
     project= models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectDonnated")
     amount= models.DecimalField(max_digits=9, decimal_places=2)
     created_at= models.DateTimeField(default=datetime.now, blank=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(DateTimeField)
