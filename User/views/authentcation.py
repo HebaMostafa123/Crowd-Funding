@@ -31,19 +31,19 @@ def UserRegisterView(request):
 def loginPage(request):
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('projectlist')
         else:
-            messages.info(request, 'Username OR password is incorrect')
+            messages.info(request, 'Email OR password is incorrect')
 
     context = {}
-    return render(request, 'accounts/login.html', context)
+    return render(request, 'registration/login.html', context)
 
 
 def logoutUser(request):
