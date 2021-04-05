@@ -15,94 +15,40 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import login ,authenticate
 
 
-def registerpage(request):
+def UserRegisterView(request):
 
-    # render form
-    if request.method == 'GET':
-        form = SignUpForm()
-        context={
-            'formregister':form
-        }
-        return render(request,'registration/registration.html',context)
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, 'Account was created for ' + username)
 
-    else:
-        fulldata = SignUpForm(request.POST)
+            return redirect('login')
 
-        if fulldata.is_valid():
-            fulldata.save()
-            # email=fulldata.cleaned_data('email')
-            # raw_password=fulldata.cleaned_data('password1')
-            # users=authenticate(email=email,passwor=raw_password)
-            # login(request,users)
-            return render(request, 'registration/login.html')
+    context = {'form': form}
+    return render(request, 'registration/registration.html', context)
+
+
+def loginPage(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('project/project_list.html')
         else:
-            context = {"formregister": fulldata}
-            return render(request, 'registration/registration.html', context)
+            messages.info(request, 'Username OR password is incorrect')
 
-# def UserRegisterView(request):
-#     if request.user.is_authenticated:
-#         return redirect('/home')
-#     else:
-#         form = SignUpForm(request.POST)
-#         if request.method == 'POST':
-#             form = SignUpForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 user = form.cleaned_data.get('username')
-#                 messages.success(request, 'Account was created for ' + user)
+    context = {}
+    return render(request, 'registration/login.html', context)
 
-#                 return redirect('login')
-
-#         context = {'form': form}
-#         return render(request, 'registration/registration.html', context)
-
-# def loginPage(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     else:
-#         if request.method == 'POST':
-#             username = request.POST.get('username')
-#             password = request.POST.get('password')
-
-#             user = authenticate(request, username=username, password=password)
-
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('home')
-#             else:
-#                 messages.info(request, 'Username OR password is incorrect')
-
-#         context = {}
-#         return render(request, '/login.html', context)
 
 def logoutUser(request):
     logout(request)
     return redirect('login')
-
-
-# def logoutUser(request):
-#     logout(request)
-#     return redirect('login')
-
-
-# def UserRegisterView(request):
-#     form = SignUpForm(request.POST)
-#     if form.is_valid():
-#         user = form.save()
-#         user.refresh_from_db()
-#         user.first_name = form.cleaned_data.get('first_name')
-#         user.last_name = form.cleaned_data.get('last_name')
-#         user.email = form.cleaned_data.get('email')
-#         user.save()
-#         username = form.cleaned_data.get('username')
-#         password = form.cleaned_data.get('password1')
-#         user = authenticate(username=username, password=password)
-#         login(request, user)
-#         return redirect('home')
-#     else:
-#         form = SignUpForm()
-
-#     return render(request, 'registration/registration.html', {'form': form})
-#     form_class = SignUpForm
-#     template_name = 'registration/registration.html'
-#     success_url = reverse_lazy('login')

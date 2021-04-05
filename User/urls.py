@@ -5,7 +5,8 @@ from django.urls import path,include
 from .views import authentcation
 
 urlpatterns = [
-    path('user/register', authentcation.registerpage,name='register'),
+    path('register/', authentcation.UserRegisterView,name='register'),
+    path('login/', authentcation.loginPage,name='login'),
 #    path('',registerpage, name='checkdata')
    
 ]
