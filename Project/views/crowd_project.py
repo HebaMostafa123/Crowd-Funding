@@ -42,9 +42,10 @@ def project_form(request):
         print(request.POST.get("tags"))
         form=ProjectForm(request.POST)
         if form.is_valid():
-            project=form.save()
-            #to do get the user from session
-            
+            project=form.save(commit=False)
+            #add project owner
+            project.owner_id=1
+            project.save()
             for currentTag in tags:
                 tag=Tag()
                 tag.tag_name=currentTag
