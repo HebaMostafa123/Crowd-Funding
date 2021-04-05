@@ -1,10 +1,10 @@
-from django.db import models
-
+from django.contrib.auth.models import AbstractUser, UserManager
 # Create your models here.
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import AbstractUser, UserManager
-from django.utils.translation import gettext_lazy as _ 
-from django_countries.fields import CountryField 
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
+
 
 # create account manager
 class UserAccountManager(UserManager):
@@ -27,7 +27,6 @@ class UserAccountManager(UserManager):
             username=username,
             password=password
         )
-        # user.is_admin = True
         user.is_superuser=True
         user.is_staff=True
         user.save(using=self._db)
@@ -40,9 +39,8 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=False)
     email = models.EmailField(verbose_name="email", max_length=254, unique=True)
-    # password = models.CharField(max_length=30)
     country = CountryField(blank=True, null=True)
-    profile_picutre = models.ImageField(upload_to="images/", blank=True, null=True, default='images/index2.jpeg')
+    profile_picutre = models.ImageField(upload_to="images/", blank=True, null=True,default='images/avatardefault.png')
     phone_number = models.CharField(
         max_length=16,
         blank=True,
@@ -55,7 +53,6 @@ class User(AbstractUser):
         ],
     )
     birth_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
-    # is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -63,9 +60,6 @@ class User(AbstractUser):
 
     def _str_(self):
         return self.email
-
-    # def has_perm(self, perm, obj=None):
-    #     return self.is_admin
 
     def has_module_perms(self, app_label):
         return True
