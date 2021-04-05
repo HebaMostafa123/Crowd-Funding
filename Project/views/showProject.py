@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from Project.forms.comment_form import ProjectCommentForm
-from Project.models.user_project import UserProject,ProjectComment, ProjectRate
+from Project.models.user_project import UserProject,ProjectComment, ProjectRate, ProjectReport
 from Project.forms.report_form import ProjectReportForm
 from datetime import datetime
 from django.db.models import Avg
@@ -27,8 +27,14 @@ def comment(request):
         project_id=request.POST.get('project_id'),
     )
 
-    return HttpResponse("dona ya 7amdana")
+    return redirect( "list")
 
+def report(request):
+    report = ProjectReport.objects.create(
+        report_body=request.POST.get('report_body'), user_id=request.POST.get('user_id'),
+        project_id=request.POST.get('project_id'),
+    )
+    return redirect( "list")
 
 def rate(request):
     if request.is_ajax():

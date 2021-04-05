@@ -15,6 +15,76 @@
 {#<span class="fa fa-star checked"></span>#}
 {#<span class="fa fa-star checked"></span>#}
 {#<span class="fa fa-star"> </span>#}
+
+
+
+<!-- Button trigger modal -->
+{#    <div class="donate">#}
+{#<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
+{#  donate project#}
+{#</button>#}
+{##}
+{#<!-- Modal -->#}
+{#<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#  <div class="modal-dialog">#}
+{#    <div class="modal-content">#}
+{#      <div class="modal-header">#}
+{#        <h5 class="modal-title" id="exampleModalLabel">Enter donation amount</h5>#}
+{#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#      </div>#}
+{#      <div class="modal-body">#}
+{#          <input type="number" class="form-control">#}
+{#      </div>#}
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+{#        <button type="button" class="btn btn-primary">donate</button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+{##}
+{#</div>#}
+
+
+    <div class="report">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#report">
+  report project
+</button>
+
+<!-- Modal -->
+<div class="modal  fade " id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <form action="{% url 'report-project' %}"  method="POST">
+    {%csrf_token%}
+                <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+
+      <div class="modal-body">
+          <textarea name="report_body"  rows="4" class="form-control"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="report">
+      </div>
+            </form>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
     <form action="{% url 'comment' %}"  method="POST">
 
     {%csrf_token%}
@@ -54,7 +124,9 @@
 {#    </form>#}
 {##}
 {#</div>#}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% endblock content %}
+{% block scripts %}
     <script>
     {#console.log(id)#}
         $(document).ready(function(){
@@ -82,4 +154,4 @@ $("input[type='radio']").click(function() {
 
 })})
     </script>
-{% endblock content %}
+{% endblock scripts %}
