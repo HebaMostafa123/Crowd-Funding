@@ -1,5 +1,6 @@
 from django import forms
 from Project.models.user_project import UserProject
+from Project.models.tag import Tag
 from django.contrib.admin import widgets
 
 
@@ -13,3 +14,11 @@ class ProjectForm(forms.ModelForm):
         model = UserProject
         fields = ("title", "details", "total_target", "start_date", "end_date", "category")
         widgets = {'start_date': DateInput(), 'end_date': DateInput()}
+
+
+class TagForm(forms.ModelForm):
+
+    class Meta:
+        model = Tag
+        fields = ("tag_name",)
+    
