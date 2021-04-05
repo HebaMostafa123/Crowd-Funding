@@ -10,11 +10,27 @@
 
 <div class="container " style="text-align: center;margin: auto; width: 30%;border: 3px solid rgb(66, 100, 161); padding: 65px;">
     <h1>Registration</h1>
-    <form method="POST" enctype="multipart/form-data">
+  
+    <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary ">Register</button>
-
+      {%  for field in formregister %}
+         <p>
+            {{ field.label_tag }}
+             {{field}}
+             {% if field.help_text %}
+             <small style="color:gray;">
+                 {{field.help_text}}
+             </small>
+             {% endif %}
+             {% for error in field.errors %}
+              <p style="color:red;">
+                 {{error}}
+             </p>
+             {% endfor %}
+         </p>
+  
+     {% endfor %}
+        <input type="submit" name="sign in">
     </form>
 
 </div>

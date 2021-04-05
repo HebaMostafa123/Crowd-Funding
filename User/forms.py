@@ -9,11 +9,11 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
     phone_number = forms.CharField(max_length=100)
-    profile_picture = forms.ImageField()
+    # profile_picture = forms.ImageField()
 
     class Meta:
         model = User
-        fields = [
+        fields = (
             'username', 'first_name', 'last_name', 'password1', 'password2',
-            'phone_number', 'email', 'profile_picture'
-        ]
+            'phone_number', 'email'
+        )
