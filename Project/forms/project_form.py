@@ -3,6 +3,8 @@ from Project.models.user_project import UserProject
 from Project.models.tag import Tag
 from django.contrib.admin import widgets
 
+from Project.models import ProjectPicture
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -21,4 +23,11 @@ class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ("tag_name",)
-    
+
+
+class ImageForm(forms.ModelForm):
+    image = forms.ImageField(label='Image')
+
+    class Meta:
+        model = ProjectPicture
+        fields = ('image',)

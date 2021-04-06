@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
@@ -24,4 +27,4 @@ urlpatterns = [
     url(r'^project/(?P<project_id>\d+)/delete$', crowd_project.delete, name='project_delete'),
     path('login', authentcation.logoutUser, name='logout'),
 
-]
+]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
