@@ -18,12 +18,12 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from User.utils import generate_token
+# from User.utils import generate_token
 from django.core.mail import EmailMessage
 from django.conf import settings
+from User.utils import account_activation_token
 
-
-
+from django.urls import reverse
 
 import threading
 
@@ -47,24 +47,28 @@ def UserRegisterView(request):
             username = form.cleaned_data.get('username')
             #email activation
             current_site = get_current_site(request)
-            email_subject = 'Active your Account'
-            message = render_to_string('registration/activate.html',
-                                    {
-                                        'user': user,
-                                        'domain': current_site.domain,
-                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                                        'token': generate_token.make_token(user)
-                                    }
-                                    )
+            email_body = {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            }
 
-            email_message = EmailMessage(
+            link = reverse('activate', kwargs={
+                            'uidb64': email_body['uid'], 'token': email_body['token']})
+
+            email_subject = 'Activate your account'
+
+            activate_url = 'http://'+current_site.domain+link
+
+            email = EmailMessage(
                 email_subject,
-                message,
-                settings.EMAIL_HOST_USER,
-                ['mai.maher003@gmail.com']
+                'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
+                'mai.maher003@gmail.com',
+                [email],
             )
-
-            EmailThread(email_message).start()
+            email.send(fail_silently=False)
+            EmailThread(email).start()
 
 
 
