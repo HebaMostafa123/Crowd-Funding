@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import DateTimeField
+
 from .user import CrowdUser
 from .category import Category
 from datetime import datetime
@@ -17,7 +19,7 @@ class UserProject(models.Model):
     user_comment = models.ManyToManyField(CrowdUser, through='ProjectComment', related_name="user_comment_join")
     user_report = models.ManyToManyField(CrowdUser, through='ProjectReport', related_name="user_report_join")
     user_rate = models.ManyToManyField(CrowdUser, through='ProjectRate', related_name="user_rate_join")
-    created_at = models.DateTimeField(default=datetime.now, blank=True,null=True)
+    created_at = models.DateTimeField(default=datetime.now, blank=True, null=True)
     updated_at = models.DateTimeField(null=True)
 
     def __str__(self):
@@ -30,15 +32,18 @@ class ProjectComment(models.Model):
     comment_body = models.TextField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.comment_body
 
+
 class ProjectReport(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="projectReporter")
-    project= models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectReported")
-    report_body= models.TextField()
-    created_at= models.DateTimeField(default=datetime.now, blank=True)
+    project = models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectReported")
+    report_body = models.TextField()
+    created_at = models.DateTimeField(default=datetime.now, blank=True)
     updated_at = models.DateTimeField(default=datetime.now)
+
 
 class ProjectRate(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE , related_name="projectRater")
@@ -46,6 +51,7 @@ class ProjectRate(models.Model):
     rate= models.FloatField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
     updated_at = models.DateTimeField(default=datetime.now)
+
 
 class ProjectDonation(models.Model):
     user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="projectDonnater")
