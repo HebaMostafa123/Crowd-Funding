@@ -4,7 +4,6 @@
     <list default="true" id="635ee5ce-78df-48bf-a7e0-18e7a0b74f44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/models/user_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/models/user_project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/templates/project/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/templates/project/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/templates/project/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/templates/project/show.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project/views/showProject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project/views/showProject.py" afterDir="false" />
@@ -96,6 +95,7 @@
       <workItem from="1617550134892" duration="1311000" />
       <workItem from="1617637258984" duration="69000" />
       <workItem from="1617637609653" duration="2582000" />
+      <workItem from="1617726339285" duration="823000" />
     </task>
     <servers />
   </component>

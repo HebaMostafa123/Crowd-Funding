@@ -52,4 +52,11 @@ class ProjectDonation(models.Model):
     project= models.ForeignKey(UserProject, on_delete=models.CASCADE, related_name="projectDonnated")
     amount= models.DecimalField(max_digits=9, decimal_places=2)
     created_at= models.DateTimeField(default=datetime.now, blank=True)
-    updated_at = models.DateTimeField(DateTimeField)
+    updated_at = models.DateTimeField(default=datetime.now)
+
+class CommentReport(models.Model):
+    user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="commentReporter")
+    commment= models.ForeignKey(ProjectComment, on_delete=models.CASCADE, related_name="commentReported")
+    report_body= models.TextField()
+    created_at = models.DateTimeField(default=datetime.now, blank=True)
+    updated_at = models.DateTimeField(default=datetime.now)
