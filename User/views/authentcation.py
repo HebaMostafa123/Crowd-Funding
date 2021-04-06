@@ -18,11 +18,11 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-# from User.utils import generate_token
+from User.utils import generate_token
 from django.core.mail import EmailMessage
 from django.conf import settings
 from User.utils import account_activation_token
-
+from six import text_type
 from django.urls import reverse
 
 import threading
@@ -41,10 +41,12 @@ def UserRegisterView(request):
 
     form = SignUpForm()
     if request.method == 'POST':
+        
         form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+            email = request.POST['email']
             #email activation
             current_site = get_current_site(request)
             email_body = {
@@ -92,9 +94,9 @@ class ActivateAccountView(View):
         if user is not None and generate_token.check_token(user, token):
             user.is_active = True
             user.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'account activated successfully')
+            messages.add_message(request, messages.SUCCESS,'account activated successfully')
             return redirect('login')
+       
         return render(request, 'registration/activate_failed.html', status=401)
 
 
