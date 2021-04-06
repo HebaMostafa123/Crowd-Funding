@@ -8,3 +8,5 @@ class Tag(models.Model):
      tag_name = models.CharField(max_length=200)
      created_at = models.DateTimeField(default=datetime.now, blank=True)
      updated_at = models.DateTimeField()
+     def __str__(self):
+         return self.tag_name

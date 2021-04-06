@@ -11,19 +11,39 @@ def index(request):
 
 
 def project_list(request):
-    print(UserProject.objects.all())
+   # print(UserProject.objects.all())
     return render(request, "project/project_list.html",{'projects':UserProject.objects.all()})
 
 
 def edit(request, project_id):
     project = UserProject.objects.get(id=project_id)
+    tags=Tag.objects.filter(project_id=project_id)
+
+    tagToString=""
+    for tag in tags:
+        tagToString+=tag.tag_name+" "
+        
+    #print(tagToString)
     form = ProjectForm(instance=project)
-    return render(request, 'project/edit.html', {'project': project, 'form': form})
+    return render(request, 'project/edit.html', {'project': project, 'form': form,'tags':tagToString})
 
 
 def update(request, project_id):
     project = UserProject.objects.get(id=project_id)
     form = ProjectForm(request.POST, instance=project)
+    tagToUpdate=Tag.objects.filter(project_id=project_id).delete()
+    newTags=request.POST.get("tags").split()
+    for currentTag in newTags:
+                tag=Tag()
+                tag.tag_name=currentTag
+                tag.project_id=project.id
+                tag.updated_at=datetime.now()
+                tag.save()
+
+    print("haha new tag: ")
+    print(tagToUpdate)
+    
+    # for tag
     if form.is_valid():
         form.save()
         return redirect("list")
@@ -39,7 +59,7 @@ def project_form(request):
         return render(request,"project/project_form.html",{'form':form})
     else:
         tags=request.POST.get("tags").split()      
-        print(request.POST.get("tags"))
+        #print(request.POST.get("tags"))
         form=ProjectForm(request.POST)
         if form.is_valid():
             project=form.save(commit=False)
@@ -58,3 +78,4 @@ def delete(request, project_id):
     project = get_object_or_404(UserProject, id=project_id)
     project.delete()
     return redirect( "list")
+
