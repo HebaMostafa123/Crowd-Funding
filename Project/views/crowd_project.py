@@ -78,3 +78,4 @@ def delete(request, project_id):
     project = get_object_or_404(UserProject, id=project_id)
     project.delete()
     return redirect( "list")
+
