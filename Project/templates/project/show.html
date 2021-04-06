@@ -62,7 +62,7 @@
         <form action="{% url 'report-project' %}"  method="POST">
     {%csrf_token%}
                 <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
-    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
 
       <div class="modal-body">
           <textarea name="report_body"  rows="4" class="form-control"></textarea>
@@ -89,7 +89,7 @@
 
     {%csrf_token%}
     <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
-    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
     {{ form.name.errors }}
     {{form|crispy}}
     <input type="submit" class="btn btn-success offset-5 mt-2" value="comment">
@@ -110,6 +110,39 @@
         {% for comment in project.projectCommented.all%}
             <h1>{{ comment.user}}</h1>
             <h1>{{ comment}}</h1>
+    <div class="reportComment">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentreport{{ comment.id }}">
+  report comment
+</button>
+
+<!-- Modal -->
+<div class="modal  fade " id="commentreport{{ comment.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <form action="{% url 'report-comment' %}"  method="POST">
+    {%csrf_token%}
+                <input type="hidden" class="btn btn-success offset-5 mt-2" name="commment_id" value="{{ comment.id }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
+
+      <div class="modal-body">
+          <textarea name="report_body"  rows="4" class="form-control"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="report">
+      </div>
+            </form>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
             <br>
         {% endfor %}
 
