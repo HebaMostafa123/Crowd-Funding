@@ -58,7 +58,7 @@ class ProjectDonation(models.Model):
     updated_at = models.DateTimeField(default=datetime.now)
 
 class CommentReport(models.Model):
-    user = models.ForeignKey(CrowdUser, on_delete=models.CASCADE, related_name="commentReporter")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentReporter")
     commment= models.ForeignKey(ProjectComment, on_delete=models.CASCADE, related_name="commentReported")
     report_body= models.TextField()
     created_at = models.DateTimeField(default=datetime.now, blank=True)

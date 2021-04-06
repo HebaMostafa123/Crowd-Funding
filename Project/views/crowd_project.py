@@ -6,22 +6,22 @@ from Project.models.user_project import UserProject
 from Project.models.tag import Tag
 from datetime import datetime
 
+
 def index(request):
     return HttpResponse("Hello world")
 
 
 def project_list(request):
-   # print(UserProject.objects.all())
-    return render(request, "project/project_list.html",{'projects':UserProject.objects.all()})
+    return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
 
 
 def edit(request, project_id):
     project = UserProject.objects.get(id=project_id)
-    tags=Tag.objects.filter(project_id=project_id)
+    tags = Tag.objects.filter(project_id=project_id)
 
-    tagToString=""
+    tagToString = ""
     for tag in tags:
-        tagToString+=tag.tag_name+" "
+        tagToString += tag.tag_name+" "
         
     #print(tagToString)
     form = ProjectForm(instance=project)
@@ -31,8 +31,8 @@ def edit(request, project_id):
 def update(request, project_id):
     project = UserProject.objects.get(id=project_id)
     form = ProjectForm(request.POST, instance=project)
-    tagToUpdate=Tag.objects.filter(project_id=project_id).delete()
-    newTags=request.POST.get("tags").split()
+    tagToUpdate = Tag.objects.filter(project_id=project_id).delete()
+    newTags = request.POST.get("tags").split()
     for currentTag in newTags:
                 tag=Tag()
                 tag.tag_name=currentTag
@@ -54,17 +54,15 @@ def project_form(request):
     if request.method == "GET":
         print("testing")
         form=ProjectForm()
-        
-
         return render(request,"project/project_form.html",{'form':form})
     else:
         tags=request.POST.get("tags").split()      
         #print(request.POST.get("tags"))
-        form=ProjectForm(request.POST)
+        form = ProjectForm(request.POST)
         if form.is_valid():
-            project=form.save(commit=False)
+            project = form.save(commit=False)
             #add project owner
-            project.owner_id=1
+            project.owner_id = request.user.id
             project.save()
             for currentTag in tags:
                 tag=Tag()
@@ -73,6 +71,7 @@ def project_form(request):
                 tag.updated_at=datetime.now()
                 tag.save()
         return redirect('list')
+
 
 def delete(request, project_id):
     project = get_object_or_404(UserProject, id=project_id)

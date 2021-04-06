@@ -120,6 +120,7 @@ class ActivateAccountView(View):
     #     return render(request, 'registration/activate_failed.html', status=401)
 
 
+
 def loginPage(request):
 
     if request.method == 'POST':
@@ -130,7 +131,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('projectlist')
+            return redirect('list')
         else:
             messages.info(request, 'Email OR password is incorrect')
 
