@@ -19,7 +19,7 @@ class UserProject(models.Model):
     user_report = models.ManyToManyField(User, through='ProjectReport', related_name="user_report_join")
     user_rate = models.ManyToManyField(User, through='ProjectRate', related_name="user_rate_join")
     created_at = models.DateTimeField(default=datetime.now, blank=True,null=True)
-    updated_at = models.DateTimeField(null=True)
+    updated_at = models.DateTimeField(default=datetime.now, blank=True,null=True)
 
     def __str__(self):
         return self.title

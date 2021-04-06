@@ -60,24 +60,17 @@ def project_form(request):
         return render(request, "project/project_form.html", {'form': form})
     else:
         images = request.FILES.getlist("images")
-        tags=request.POST.get("tags").split()
-        form=ProjectForm(request.POST)
-        if form.is_valid():
-            project=form.save(commit=False)
-
-        print("testing")
-        form=ProjectForm()
-        return render(request,"project/project_form.html",{'form':form})
-    else:
-        tags=request.POST.get("tags").split()      
-        #print(request.POST.get("tags"))
+        tags = request.POST.get("tags").split()
         form = ProjectForm(request.POST)
+
+
         if form.is_valid():
             project = form.save(commit=False)
 
             #add project owner
             project.owner_id = request.user.id
             project.save()
+
             # add project tags
             for currentTag in tags:
                 tag=Tag()
@@ -93,8 +86,10 @@ def project_form(request):
                 photo.save()
             return redirect('list')
         else:
+            print("111111111111111111111111111111111111111111")
             print(form.errors)
 
+            return HttpResponse(form.errors)
 
 
 def delete(request, project_id):
