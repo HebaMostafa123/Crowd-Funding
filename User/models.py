@@ -15,7 +15,9 @@ class UserAccountManager(UserManager):
             raise ValueError('User must have username')
         user = self.model(email=self.normalize_email(email), username=username)
         user.set_password(password)
+        
         user.save(using=self._db)
+        
         return user
 
     def create_superuser(self, username, email, password, **extra_fields):
@@ -24,6 +26,7 @@ class UserAccountManager(UserManager):
                                 password=password)
         user.is_superuser = True
         user.is_staff = True
+        user.is_active=True
         user.save(using=self._db)
         return user
 
@@ -53,6 +56,7 @@ class User(AbstractUser):
             ),
         ],
     )
+    is_active = models.BooleanField(default=False) 
     birth_date = models.DateField(auto_now=False,
                                   auto_now_add=False,
                                   null=True)

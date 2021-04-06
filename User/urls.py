@@ -8,6 +8,7 @@ from .views import authentcation
 urlpatterns = [
     path('register/', authentcation.UserRegisterView, name='register'),
     path('login/', authentcation.loginPage, name="login"),
+    path('activate/<uidb64>/<token>',authentcation.ActivateAccountView.as_view(), name='activate'),
     path('reset_password/',
          auth_views.PasswordResetView.as_view(
              template_name="password_reset.html"),
