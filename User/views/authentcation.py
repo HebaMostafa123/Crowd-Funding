@@ -87,17 +87,37 @@ def UserRegisterView(request):
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
         try:
-            uid = force_text(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except Exception as identifier:
-            user = None
-        if user is not None and generate_token.check_token(user, token):
+            id = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not account_activation_token.check_token(user, token):
+                return redirect('login'+'?message='+'User already activated')
+
+            if user.is_active:
+                return redirect('login')
             user.is_active = True
             user.save()
-            messages.add_message(request, messages.SUCCESS,'account activated successfully')
+
+            messages.success(request, 'Account activated successfully')
             return redirect('login')
+
+        except Exception as ex:
+            pass
+
+        return redirect('login')
+    # def get(self, request, uidb64, token):
+    #     try:
+    #         uid = force_text(urlsafe_base64_decode(uidb64))
+    #         user = User.objects.get(pk=uid)
+    #     except Exception as identifier:
+    #         user = None
+    #     if user is not None and generate_token.check_token(user, token):
+    #         user.is_active = True
+    #         user.save()
+    #         messages.add_message(request, messages.SUCCESS,'account activated successfully')
+    #         return redirect('login')
        
-        return render(request, 'registration/activate_failed.html', status=401)
+    #     return render(request, 'registration/activate_failed.html', status=401)
 
 
 def loginPage(request):
