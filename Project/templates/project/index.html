@@ -110,35 +110,21 @@
             </div>
         </section>
         <section class="events_section_area">
-            <h2>UPCOMING EVENTS</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua. </p>
+            <h2>RECENT PROJECTS</h2>
             <div class="container">
                 <div class="row">
+                    {%for project,pic in recentProjects.items%}
                     <div class="col-md-4 col-xs-12">
                         <div class="events_single">
-                            <img src="{% static 'img/events_single_one.jpg' %}" alt="">
-                            <p><span class="event_left"><i class="material-icons">access_time</i>1:00 pm - 3:00 pm</span><span class="event_right"><i class="material-icons">location_on</i>California Street</span></p>
+                            <img src="{{pic}}" alt="" style="width: 400px; height: 500px;">
+                            <p><span class="event_left"><i class="material-icons">access_time</i>{{project.start_date}}</span><span class="event_right"><i class="material-icons">done</i>{{project.end_date}}</span></p>
                             <div class="clear"></div>
-                            <h3>Education For Children</h3>
-                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</h6>
+                            <h3>{{project.title}}</h3>
+                            <h6>{{project.details}}</h6>
                         </div>
                     </div>
-                    <div class="col-md-4 col-xs-12">
-                        <div class="events_single">
-                            <img src="{% static 'img/events_single_two.jpg' %}" alt="">
-                            <p><span class="event_left"><i class="material-icons">access_time</i>1:00 pm - 3:00 pm</span><span class="event_right"><i class="material-icons">location_on</i>California Street</span></p>
-                            <h3>Education For Children</h3>
-                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-xs-12">
-                        <div class="events_single">
-                            <img src="{% static 'img/events_single_three.jpg' %}" alt="">
-                            <p><span class="event_left"><i class="material-icons">access_time</i>1:00 pm - 3:00 pm</span><span class="event_right"><i class="material-icons">location_on</i>California Street</span></p>
-                            <h3>Education For Children</h3>
-                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</h6>
-                        </div>
-                    </div>
+                    {%endfor%}
+              
                 </div>
             </div>
         </section>

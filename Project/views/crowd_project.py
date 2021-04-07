@@ -15,26 +15,40 @@ from Project.models import ProjectPicture
 
 def index(request):
     print(request.method)
+    projectPic=[]
+       
+    projectDic={}
     #Search by tag
     if request.method=="POST":
         tags=Tag.objects.filter(tag_name=request.POST.get("search"))
         filteredProjects=[]
-        projectPic=[]
-        projectDic={}
         for tag in tags:
             filteredProjects.append(UserProject.objects.get(id=tag.project_id))
         
-        for project in filteredProjects:
-             projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
-        for project in filteredProjects:
-            for picture in projectPic:
-                projectDic[project]=picture
-                projectPic.remove(picture)
-                break      
-        return render(request,"project/index.html",{'projects':projectDic})
+        projectDic=projectZip(filteredProjects,projectPic)     
+        return render(request,"project/index.html",{'projects':projectDic,"recentProjects":projectDic})
+    #filter by the most recent 6 projects
+    recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
+    #return HttpResponse(recentProjects)
+    projectDic=projectZip(recentProjects,projectPic)
       
-    return render(request, "project/index.html")
+    return render(request, "project/index.html",{"recentProjects":projectDic})
 
+def projectZip(projects,projectPic):
+    projectDic={}
+    
+
+    for project in projects:
+             print("helooo")
+             projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
+    for project in projects:
+        for picture in projectPic:
+            projectDic[project]=picture
+            projectPic.remove(picture)
+            break 
+    return projectDic 
+    
+    
 
 def project_list(request):
     return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
