@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth.models import AbstractUser, UserManager
 # Create your models here.
 from django.core.validators import RegexValidator
@@ -15,9 +17,9 @@ class UserAccountManager(UserManager):
             raise ValueError('User must have username')
         user = self.model(email=self.normalize_email(email), username=username)
         user.set_password(password)
-        
+
         user.save(using=self._db)
-        
+
         return user
 
     def create_superuser(self, username, email, password, **extra_fields):
@@ -26,7 +28,7 @@ class UserAccountManager(UserManager):
                                 password=password)
         user.is_superuser = True
         user.is_staff = True
-        user.is_active=True
+        user.is_active = True
         user.save(using=self._db)
         return user
 
@@ -40,6 +42,14 @@ class User(AbstractUser):
                               max_length=254,
                               unique=True)
     country = CountryField(blank=True, null=True)
+    balance = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=5000.00,
+        blank=True,
+        null=True,
+    )
+    faceboock_url = models.URLField(max_length=250, blank=True, null=True)
     profile_picutre = models.ImageField(upload_to="images/",
                                         blank=True,
                                         null=True,
@@ -56,7 +66,7 @@ class User(AbstractUser):
             ),
         ],
     )
-    is_active = models.BooleanField(default=False) 
+    is_active = models.BooleanField(default=False)
     birth_date = models.DateField(auto_now=False,
                                   auto_now_add=False,
                                   null=True)
