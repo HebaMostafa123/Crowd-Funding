@@ -6,6 +6,7 @@ from django.template import RequestContext
 from Project.forms.project_form import ProjectForm, ImageForm
 from Project.forms.project_form import TagForm
 from Project.models.user_project import UserProject
+from Project.models.project_picture import ProjectPicture
 from Project.models.tag import Tag
 from datetime import datetime
 
@@ -18,10 +19,19 @@ def index(request):
     if request.method=="POST":
         tags=Tag.objects.filter(tag_name=request.POST.get("search"))
         filteredProjects=[]
+        projectPic=[]
+        projectDic={}
         for tag in tags:
             filteredProjects.append(UserProject.objects.get(id=tag.project_id))
-        #return HttpResponse( filteredProjects)
-        return render(request,"project/index.html",{'projects':filteredProjects})
+        
+        for project in filteredProjects:
+             projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
+        for project in filteredProjects:
+            for picture in projectPic:
+                projectDic[project]=picture
+                projectPic.remove(picture)
+                break      
+        return render(request,"project/index.html",{'projects':projectDic})
       
     return render(request, "project/index.html")
 

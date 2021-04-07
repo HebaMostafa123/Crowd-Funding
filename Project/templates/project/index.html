@@ -187,11 +187,11 @@
                     <div class="col-md-12">
                         <div class="our_cuauses_single owl-carousel owl-theme">
 
-                             {%for project in projects %}
+                             {%for project,pic in projects.items %}
                              
                              
                             <div class="item">
-                                <img src="/media/images/project/spider-man_merch.jpeg" alt="">
+                                <img src="{{pic}}" alt="{{pic}}">
                                 <div class="for_padding">
                                     <h2>{{project.title}}</h2>
                                     <p>{{project.details}}</p>
