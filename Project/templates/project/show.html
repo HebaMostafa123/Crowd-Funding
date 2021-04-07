@@ -12,7 +12,7 @@
     <h1>{{ project.category }}</h1>
 
 
-
+    {%ifnotequal request.user.id project.owner_id%}
 
         <div class="donate">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#donate">
@@ -101,7 +101,7 @@
 </div>
 
 </div>
-
+{%endifnotequal%}
 
 
 
