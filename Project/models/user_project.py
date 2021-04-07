@@ -5,6 +5,7 @@ from .category import Category
 from datetime import datetime
 
 
+
 class UserProject(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projectOwner",null=True)
     title = models.CharField(max_length=200)

@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^project/(?P<project_id>\d+)/$', showProject.show, name='item_read'),
     path('project/comment', showProject.comment, name='comment'),
     url('project/rate', showProject.rate, name='rate'),
+    url('project/donate', showProject.donate, name='donate'),
     url('project/report', showProject.report, name='report-project'),
     url('comment/report', showProject.reportComment, name='report-comment'),
 
