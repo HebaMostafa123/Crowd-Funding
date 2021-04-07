@@ -6,6 +6,7 @@ from django.template import RequestContext
 from Project.forms.project_form import ProjectForm, ImageForm
 from Project.forms.project_form import TagForm
 from Project.models.user_project import UserProject
+from Project.models.project_picture import ProjectPicture
 from Project.models.tag import Tag
 from datetime import datetime
 
@@ -13,8 +14,41 @@ from Project.models import ProjectPicture
 
 
 def index(request):
-    return render(request, "project/index.html")
+    print(request.method)
+    projectPic=[]
+       
+    projectDic={}
+    #Search by tag
+    if request.method=="POST":
+        tags=Tag.objects.filter(tag_name=request.POST.get("search"))
+        filteredProjects=[]
+        for tag in tags:
+            filteredProjects.append(UserProject.objects.get(id=tag.project_id))
+        
+        projectDic=projectZip(filteredProjects,projectPic)     
+        return render(request,"project/index.html",{'projects':projectDic,"recentProjects":projectDic})
+    #filter by the most recent 6 projects
+    recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
+    #return HttpResponse(recentProjects)
+    projectDic=projectZip(recentProjects,projectPic)
+      
+    return render(request, "project/index.html",{"recentProjects":projectDic})
 
+def projectZip(projects,projectPic):
+    projectDic={}
+    
+
+    for project in projects:
+             print("helooo")
+             projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
+    for project in projects:
+        for picture in projectPic:
+            projectDic[project]=picture
+            projectPic.remove(picture)
+            break 
+    return projectDic 
+    
+    
 
 def project_list(request):
     return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
@@ -97,3 +131,4 @@ def delete(request, project_id):
     project = get_object_or_404(UserProject, id=project_id)
     project.delete()
     return redirect( "list")
+
