@@ -11,8 +11,9 @@ from datetime import datetime
 
 from Project.models import ProjectPicture
 
+
 def index(request):
-    return HttpResponse("Hello world")
+    return render(request, "project/index.html")
 
 
 def project_list(request):

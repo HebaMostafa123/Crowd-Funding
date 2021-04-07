@@ -12,7 +12,7 @@ from .views import showProject
 urlpatterns = [
 
     # path('', include('Project.urls')),
-    path('home',crowd_project.index),
+    path('project/', crowd_project.index, name="index"),
     path('project/form', crowd_project.project_form),
     path('project/list', crowd_project.project_list,name="list"),
     path('project/form', crowd_project.project_form,name="form"),
