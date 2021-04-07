@@ -10,44 +10,67 @@
     </p>
     <h1>{{ project.total_target }}</h1>
     <h1>{{ project.category }}</h1>
-{#<span class="fa fa-star checked"></span>#}
-{#<span class="fa fa-star checked"></span>#}
-{#<span class="fa fa-star checked"></span>#}
-{#<span class="fa fa-star checked"></span>#}
-{#<span class="fa fa-star"> </span>#}
 
 
 
-<!-- Button trigger modal -->
-{#    <div class="donate">#}
-{#<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
-{#  donate project#}
-{#</button>#}
-{##}
-{#<!-- Modal -->#}
-{#<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#  <div class="modal-dialog">#}
-{#    <div class="modal-content">#}
-{#      <div class="modal-header">#}
-{#        <h5 class="modal-title" id="exampleModalLabel">Enter donation amount</h5>#}
-{#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-{#      </div>#}
-{#      <div class="modal-body">#}
-{#          <input type="number" class="form-control">#}
-{#      </div>#}
-{#      <div class="modal-footer">#}
-{#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
-{#        <button type="button" class="btn btn-primary">donate</button>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
-{##}
-{#</div>#}
+
+        <div class="donate">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#donate">
+  donate project
+</button>
+
+<!-- Modal -->
+<div class="modal  fade " id="donate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section class="donors">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="donors_input">
+                            <h2>DONATION NOW</h2>
+{#                                   <form action="{% url 'report-project' %}"  method="POST">#}
+{#    {%csrf_token%}#}
+                <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
+
+                                <p class="amount">
+
+                                    <input id="donateValue" type="number" name="donate">
+                                </p>
+            <div id="donateMsg"></div>
+                                <h5>
+                                </h5>
+                                <h4>
+                                </h4>
+                                <input type="submit" id="donateSubmit" value="DONATION NOW">
+{#                            </form>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+        </div>
+
+    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="report">
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#report">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#report">
   report project
 </button>
 
@@ -57,7 +80,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
       </div>
         <form action="{% url 'report-project' %}"  method="POST">
     {%csrf_token%}
@@ -68,7 +91,7 @@
           <textarea name="report_body"  rows="4" class="form-control"></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+{#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
         <input type="submit" class="btn btn-primary" value="report">
       </div>
             </form>
@@ -111,7 +134,7 @@
             <h1>{{ comment.user}}</h1>
             <h1>{{ comment}}</h1>
     <div class="reportComment">
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentreport{{ comment.id }}">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentreport{{ comment.id }}">
   report comment
 </button>
 
@@ -121,7 +144,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
         <form action="{% url 'report-comment' %}"  method="POST">
     {%csrf_token%}
@@ -132,7 +157,7 @@
           <textarea name="report_body"  rows="4" class="form-control"></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+{#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
         <input type="submit" class="btn btn-primary" value="report">
       </div>
             </form>
@@ -145,6 +170,7 @@
 
             <br>
         {% endfor %}
+
 
     {% endif %}
 {#<div style="">#}
@@ -164,7 +190,7 @@
     {#console.log(id)#}
         $(document).ready(function(){
 var proectId = "{{ project.id }}"
-var userId = "{{ 1 }}"
+var userId = "{{ user.id }}"
 
 $("input[type='radio']").click(function() {
     var rate = $("input[type='radio']:checked").val();
@@ -185,6 +211,44 @@ $("input[type='radio']").click(function() {
       });
 
 
-})})
+});
+
+    $("#donateSubmit").click(function() {
+    var donate = $("#donateValue").val();
+    let data = {
+        proectId: proectId,
+        userId: userId,
+        donate: donate
+    }
+  $.ajax({
+        url: "/project/donate",
+        data: data ,
+        type: 'get',
+        success: function (data) {
+             $("#donateMsg").empty()
+            if (data == "donated successfully")
+              $("#donateMsg").append("<h1>Thanks for your patience </h1>")
+            else
+              $("#donateMsg").append("<h1>you don't have this palance </h1>")
+
+          if (data.is_taken) {
+            alert(data.error_message);
+          }
+        }
+      });
+
+
+});
+
+
+
+
+        });
+
+
+
+
+
+
     </script>
 {% endblock scripts %}

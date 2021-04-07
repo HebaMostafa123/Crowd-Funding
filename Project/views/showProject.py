@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from Project.forms.comment_form import ProjectCommentForm
-from Project.models.user_project import UserProject,ProjectComment, ProjectRate, ProjectReport,CommentReport
+from Project.models.user_project import UserProject,ProjectComment, ProjectRate, ProjectReport,CommentReport,ProjectDonation
 from Project.forms.report_form import ProjectReportForm
 from datetime import datetime
 from django.db.models import Avg
+from User.models import User
 
 def show(request,project_id):
     project = get_object_or_404(UserProject, id=project_id)
@@ -56,3 +57,18 @@ def rate(request):
                                                              user_id=request.GET.get('userId')).update(rate=float(request.GET.get('rate')))
 
     return HttpResponse("dona ya 7amdana")
+
+
+def donate(request):
+    if request.is_ajax():
+            userBalance = User.objects.values_list('balance', flat=True).filter(id=request.GET.get('userId'))
+            print("hhhh")
+            balance = userBalance[0]
+            if( int(userBalance[0]) >= int(request.GET.get("donate"))):
+                dona = ProjectDonation.objects.create(
+                    amount=float(request.GET.get('donate')), user_id=request.GET.get('userId'),
+                    project_id=request.GET.get('proectId'))
+                User.objects.filter(id=request.GET.get('userId')).update(balance=int(userBalance[0]) - int(request.GET.get("donate")))
+                return HttpResponse("donated successfully")
+
+    return HttpResponse("you don't have this amount of money in your balance")

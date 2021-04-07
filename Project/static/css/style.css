@@ -603,14 +603,21 @@
 
 .donors {
     height: 600px;
+    padding-left: 30%;
+    padding-top: 5%;
 }
-
+.amount input{
+    padding-left: 5px;
+    color: black;
+    /*background-color: #1cb060;*/
+}
 .donors .donors_input {
     background: #01d262 none repeat scroll 0 0;
     float: left;
     height: 600px;
     text-align: center;
     width: 50%;
+    border-radius: 20px;
 }
 
 .donors .donors_input h2,
