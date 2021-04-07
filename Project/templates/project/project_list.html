@@ -10,7 +10,7 @@
         <th scope="col">details</th>
         <th scope="col">total target</th>
         <th scope="col">category</th>
-        <th scope="col">action</th>
+        <th scope="col" style="text-align: center;" colspan="3">action</th>
       </tr>
     </thead>
     <tbody>
@@ -21,8 +21,9 @@
         <td>{{project.details}}</td>
         <td>{{project.total_target}}</td>
         <td>{{project.category}}</td>
-        <td colspan="2"><a href="{{project.id }}/edit" class="btn btn-danger"> update</a>
-          <a href="{{project.id }}/delete" class="btn btn-success"> delete</a></td>
+        <td><a href="{{project.id}}" class="btn btn-info">view</a></td>
+        <td colspan="2"><a href="{{project.id }}/edit" class="btn btn-danger"> update</a></td>
+        <td>  <a href="{{project.id }}/delete" class="btn btn-success"> delete</a></td>
        
       </tr>
       {%endfor%}

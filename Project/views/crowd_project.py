@@ -13,6 +13,16 @@ from Project.models import ProjectPicture
 
 
 def index(request):
+    print(request.method)
+    #Search by tag
+    if request.method=="POST":
+        tags=Tag.objects.filter(tag_name=request.POST.get("search"))
+        filteredProjects=[]
+        for tag in tags:
+            filteredProjects.append(UserProject.objects.get(id=tag.project_id))
+        #return HttpResponse( filteredProjects)
+        return render(request,"project/index.html",{'projects':filteredProjects})
+      
     return render(request, "project/index.html")
 
 
@@ -97,3 +107,4 @@ def delete(request, project_id):
     project = get_object_or_404(UserProject, id=project_id)
     project.delete()
     return redirect( "list")
+
