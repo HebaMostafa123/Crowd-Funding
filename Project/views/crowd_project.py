@@ -53,9 +53,7 @@ def index(request):
 
 def projectZip(projects, projectPic):
     projectDic = {}
-
     for project in projects:
-        print("helooo")
         projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
     for project in projects:
         for picture in projectPic:
@@ -84,6 +82,12 @@ def project_list(request):
         return redirect('login')
     return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
 
+
+def user_project_list(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    # return HttpResponse(UserProject.objects.filter(owner=request.user.id))
+    return render(request, "project/project_list.html", {'projects': UserProject.objects.filter(owner=request.user.id)})
 
 def edit(request, project_id):
     if not request.user.is_authenticated:
