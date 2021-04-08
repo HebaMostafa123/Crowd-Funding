@@ -129,6 +129,25 @@
             </div>
         </section>
 
+        <section class="events_section_area">
+            <h2>Featured PROJECTS</h2>
+            <div class="container">
+                <div class="row">
+                    {%for featuredProject,pic in featuredProjectsDic.items%}
+                    <div class="col-md-4 col-xs-12">
+                        <div class="events_single">
+                            <img src="{{pic}}" alt="" style="width: 400px; height: 500px;">
+                            <p><span class="event_left"><i class="material-icons">access_time</i>{{featuredProject.created_at}}</span><span class="event_right"><i class="material-icons">done</i>{{project.end_date}}</span></p>
+                            <div class="clear"></div>
+                            <h3>{{featuredProject.project.title}}</h3>
+                            <h6>{{featuredProject.project.details}}</h6>
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                </div>
+            </div>
+        </section>
 
         <div class="block-wrapper">
             <div class="container">

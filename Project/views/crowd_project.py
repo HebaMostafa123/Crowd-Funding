@@ -6,6 +6,7 @@ from django.template import RequestContext
 from Project.forms.project_form import ProjectForm, ImageForm
 from Project.forms.project_form import TagForm
 from Project.models.user_project import UserProject
+from Project.models.featured_project import FeaturedProject
 from Project.models.project_picture import ProjectPicture
 from Project.models.tag import Tag
 from datetime import datetime
@@ -31,8 +32,10 @@ def index(request):
     recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
     #return HttpResponse(recentProjects)
     projectDic=projectZip(recentProjects,projectPic)
-      
-    return render(request, "project/index.html",{"recentProjects":projectDic})
+
+    featuredProjects= FeaturedProject.objects.all().order_by('-created_at')[:2]
+    featuredProjectsDic=projectZipFeatured(featuredProjects,projectPic)
+    return render(request, "project/index.html",{"recentProjects":projectDic,"featuredProjectsDic":featuredProjectsDic})
 
 def projectZip(projects,projectPic):
     projectDic={}
@@ -46,9 +49,22 @@ def projectZip(projects,projectPic):
             projectDic[project]=picture
             projectPic.remove(picture)
             break 
-    return projectDic 
-    
-    
+    return projectDic
+
+
+def projectZipFeatured(projects, projectPic):
+    projectDic = {}
+
+    for project in projects:
+        print("helooo")
+        projectPic.append(ProjectPicture.objects.filter(project_id=project.project_id)[0].project_picture.url)
+    for project in projects:
+        for picture in projectPic:
+            projectDic[project] = picture
+            projectPic.remove(picture)
+            break
+    return projectDic
+
 
 def project_list(request):
     return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
@@ -132,3 +148,12 @@ def delete(request, project_id):
     project.delete()
     return redirect( "list")
 
+
+def featuredProjects(request):
+    print(request.method)
+    projectPic = []
+    featuredProjects= FeaturedProject.objects.all().order_by('-created_at')[:6]
+    # return HttpResponse(featuredProjects)
+    # projectDic = projectZip(featuredProjects, projectPic)
+    #
+    # return render(request, "project/index.html", {"featuredProjects": projectDic})
