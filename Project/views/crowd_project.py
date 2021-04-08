@@ -19,8 +19,15 @@ from Project.models import ProjectPicture
 def index(request):
     print(request.method)
     projectPic=[]
-       
-    projectDic={}
+    #get heighest rated project
+    heighest_rated_projects_ids = ProjectRate.objects.values_list('project_id', flat=True).annotate(avg = Avg('rate')).order_by('-avg')[:5]
+    heighest_rated_projects = UserProject.objects.filter(projectRated__in = list(heighest_rated_projects_ids))
+    #get recent projects
+    recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
+    #get featured projects
+    featuredProjects= FeaturedProject.objects.all().order_by('-created_at')[:5]
+    featuredProjectsDic=projectZipFeatured(featuredProjects,projectPic)
+    projectRecentDic=projectZip(recentProjects,projectPic)
     #Search by tag
     if request.method=="POST":
         tags=Tag.objects.filter(tag_name=request.POST.get("search"))
@@ -29,18 +36,12 @@ def index(request):
             filteredProjects.append(UserProject.objects.get(id=tag.project_id))
         
         projectDic=projectZip(filteredProjects,projectPic)     
-        return render(request,"project/index.html",{'projects':projectDic,"recentProjects":projectDic})
+        return render(request,"project/index.html",{'projects':projectDic,"recentProjects":projectRecentDic,"featuredProjectsDic":featuredProjectsDic, "heighest_rated_projects": heighest_rated_projects})
     #filter by the most recent 6 projects
-    recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
     #return HttpResponse(recentProjects)
-    projectDic=projectZip(recentProjects,projectPic)
 
-    #get heighest rated project
-    heighest_rated_projects_ids = ProjectRate.objects.values_list('project_id', flat=True).annotate(avg = Avg('rate')).order_by('-avg')[:5]
-    heighest_rated_projects = UserProject.objects.filter(projectRated__in = list(heighest_rated_projects_ids))
-    featuredProjects= FeaturedProject.objects.all().order_by('-created_at')[:5]
-    featuredProjectsDic=projectZipFeatured(featuredProjects,projectPic)
-    return render(request, "project/index.html",{"recentProjects":projectDic,"featuredProjectsDic":featuredProjectsDic, "heighest_rated_projects": heighest_rated_projects})
+   
+    return render(request, "project/index.html",{"recentProjects":projectRecentDic,"featuredProjectsDic":featuredProjectsDic, "heighest_rated_projects": heighest_rated_projects})
 
 def projectZip(projects,projectPic):
     projectDic={}
