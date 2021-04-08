@@ -21,7 +21,7 @@
         <td>{{project.details}}</td>
         <td>{{project.total_target}}</td>
         <td>{{project.category}}</td>
-        <td><a href="{{project.id}}" class="btn btn-info">view</a></td>
+        <td><a href="/{{project.id}}" class="btn btn-info">view</a></td>
         {% ifequal request.user.id project.owner_id %}
         <td colspan="2"><a href="{{project.id }}/edit" class="btn btn-danger"> update</a></td>
         <td>  <a href="{{project.id }}/delete" class="btn btn-success"> delete</a></td>
