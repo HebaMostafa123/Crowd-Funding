@@ -11,7 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.forms import inlineformset_factory
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import DjangoUnicodeDecodeError, force_bytes, force_text
@@ -104,7 +104,7 @@ def update(request, user_id):
 def delete(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
-    return redirect("list")
+    return redirect("logout")
 
 
 class ActivateAccountView(View):
