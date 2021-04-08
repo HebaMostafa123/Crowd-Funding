@@ -18,6 +18,9 @@ from Project.models import ProjectPicture
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     projectPic = []
     # get highest rated project
     highest_rated_projects_ids = ProjectRate.objects.values_list('project_id', flat=True).annotate(
@@ -77,10 +80,14 @@ def projectZipFeatured(projects, projectPic):
 
 
 def project_list(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
 
 
 def edit(request, project_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
     project = UserProject.objects.get(id=project_id)
     tags = Tag.objects.filter(project_id=project_id)
 
@@ -94,6 +101,8 @@ def edit(request, project_id):
 
 
 def update(request, project_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
     project = UserProject.objects.get(id=project_id)
     form = ProjectForm(request.POST, instance=project)
     tagToUpdate = Tag.objects.filter(project_id=project_id).delete()
@@ -115,6 +124,9 @@ def update(request, project_id):
 
 
 def project_form(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     if request.method == "GET":
         form = ProjectForm()
         return render(request, "project/project_form.html", {'form': form})
@@ -151,12 +163,17 @@ def project_form(request):
 
 
 def delete(request, project_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     project = get_object_or_404(UserProject, id=project_id)
     project.delete()
     return redirect("list")
 
 
 def featuredProjects(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     print(request.method)
     projectPic = []
     featuredProjects = FeaturedProject.objects.all().order_by('-created_at')[:6]
@@ -167,5 +184,8 @@ def featuredProjects(request):
 
 
 def category_list(request, category_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     projects = UserProject.objects.filter(category_id=category_id)
     return render(request, "project/category.html", {'projects': projects})
