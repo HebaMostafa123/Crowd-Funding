@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
@@ -5,7 +6,7 @@ from django.template import RequestContext
 
 from Project.forms.project_form import ProjectForm, ImageForm
 from Project.forms.project_form import TagForm
-from Project.models.user_project import UserProject
+from Project.models.user_project import UserProject, ProjectRate
 from Project.models.project_picture import ProjectPicture
 from Project.models.tag import Tag
 from datetime import datetime
@@ -31,8 +32,11 @@ def index(request):
     recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
     #return HttpResponse(recentProjects)
     projectDic=projectZip(recentProjects,projectPic)
-      
-    return render(request, "project/index.html",{"recentProjects":projectDic})
+
+    #get heighest rated project
+    heighest_rated_projects_ids = ProjectRate.objects.values_list('project_id', flat=True).annotate(avg = Avg('rate')).order_by('-avg')[:5]
+    heighest_rated_projects = UserProject.objects.filter(projectRated__in = list(heighest_rated_projects_ids))
+    return render(request, "project/index.html", {"recentProjects": projectDic, "heighest_rated_projects": heighest_rated_projects})
 
 def projectZip(projects,projectPic):
     projectDic={}
