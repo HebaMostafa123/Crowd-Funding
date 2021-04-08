@@ -3,12 +3,18 @@ from django.http import HttpResponse, JsonResponse
 from Project.forms.comment_form import ProjectCommentForm
 from Project.models.user_project import UserProject,ProjectComment, ProjectRate, ProjectReport,CommentReport,ProjectDonation
 from Project.forms.report_form import ProjectReportForm
+from Project.models.project_picture import ProjectPicture
 from datetime import datetime
 from django.db.models import Avg
 from User.models import User
 
 def show(request,project_id):
     project = get_object_or_404(UserProject, id=project_id)
+    projectPics=ProjectPicture.objects.filter(project_id=project.id)
+    picArr=[]
+    for pic in projectPics:       
+        picArr.append(pic.project_picture.url)
+    
     if request.method == "GET":
         print("testing")
         form = ProjectCommentForm()
@@ -19,7 +25,7 @@ def show(request,project_id):
 
 
         return render(request,"project/show.html",{'form':form,'reportForm':reportForm, 'project':project ,
-        'rate':rate, 'yellowRate': range(1, int(rate)+1), 'blackRate':range(int(rate+1),6)})
+        'rate':rate, 'yellowRate': range(1, int(rate)+1), 'blackRate':range(int(rate+1),6),"pictures":picArr})
 
 
 def comment(request):
