@@ -7,7 +7,7 @@ from django.urls import include, path
 from User.views import authentcation
 
 from .views import crowd_project
-from .views import showProject
+from .views import showProject , userDonation
 
 urlpatterns = [
 
@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^project/(?P<project_id>\d+)/update$', crowd_project.update, name='project_update'),
     url(r'^project/(?P<project_id>\d+)/delete$', crowd_project.delete, name='project_delete'),
     path('login', authentcation.logoutUser, name='logout'),
+    path('userDonation', userDonation.donations, name='userDonation'),
 
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+              ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
