@@ -62,7 +62,7 @@
         <form action="{% url 'report-project' %}"  method="POST">
     {%csrf_token%}
                 <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
-    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
 
       <div class="modal-body">
           <textarea name="report_body"  rows="4" class="form-control"></textarea>
@@ -89,7 +89,7 @@
 
     {%csrf_token%}
     <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id" value="{{ project.id }}">
-    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
     {{ form.name.errors }}
     {{form|crispy}}
     <input type="submit" class="btn btn-success offset-5 mt-2" value="comment">
@@ -126,7 +126,7 @@
         <form action="{% url 'report-comment' %}"  method="POST">
     {%csrf_token%}
                 <input type="hidden" class="btn btn-success offset-5 mt-2" name="commment_id" value="{{ comment.id }}">
-    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ 1 }}">
+    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id" value="{{ user.id }}">
 
       <div class="modal-body">
           <textarea name="report_body"  rows="4" class="form-control"></textarea>

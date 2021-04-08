@@ -1,31 +1,28 @@
+import threading
+
+from django.conf import settings
 from django.contrib import messages
+# from users.form import Usermodelform
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.forms import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.template.loader import render_to_string
+from django.urls import reverse, reverse_lazy
+from django.utils.encoding import (DjangoUnicodeDecodeError, force_bytes,
+                                   force_text)
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import generic
+from django.views.generic import View
+from six import text_type
 from User.forms import SignUpForm
 # Create your views here.
 from User.models import User
-from django.shortcuts import render , redirect
-# from users.form import Usermodelform
-from django.contrib.auth import login ,authenticate
-from django.views.generic import View
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from User.utils import generate_token
-from django.core.mail import EmailMessage
-from django.conf import settings
-from User.utils import account_activation_token
-from six import text_type
-from django.urls import reverse
-
-import threading
+from User.utils import account_activation_token, generate_token
 
 
 class EmailThread(threading.Thread):
@@ -118,6 +115,7 @@ class ActivateAccountView(View):
     #         return redirect('login')
        
     #     return render(request, 'registration/activate_failed.html', status=401)
+
 
 
 def loginPage(request):

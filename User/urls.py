@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
-from .views import authentcation
+from .views import authentcation, user_profile
 
 urlpatterns = [
     path('register/', authentcation.UserRegisterView, name='register'),
@@ -25,4 +25,6 @@ urlpatterns = [
          auth_views.PasswordResetCompleteView.as_view(
              template_name="password_reset_done.html"),
          name="password_reset_complete"),
+
+    path('user',user_profile.show),
 ]

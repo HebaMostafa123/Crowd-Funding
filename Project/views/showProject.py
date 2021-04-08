@@ -1,10 +1,14 @@
-from django.shortcuts import render,redirect,get_object_or_404
-from django.http import HttpResponse, JsonResponse
-from Project.forms.comment_form import ProjectCommentForm
-from Project.models.user_project import UserProject,ProjectComment, ProjectRate, ProjectReport,CommentReport
-from Project.forms.report_form import ProjectReportForm
 from datetime import datetime
+
 from django.db.models import Avg
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from Project.forms.comment_form import ProjectCommentForm
+from Project.forms.report_form import ProjectReportForm
+from Project.models.user_project import (CommentReport, ProjectComment,
+                                         ProjectRate, ProjectReport,
+                                         UserProject)
+
 
 def show(request,project_id):
     project = get_object_or_404(UserProject, id=project_id)
