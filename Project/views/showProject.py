@@ -87,6 +87,8 @@ def donate(request):
             # check donation
             total_target = UserProject.objects.values_list('total_target', flat=True).filter(id=request.GET.get('proectId'))
             total_donates =ProjectDonation.objects.filter(project_id= request.GET.get('proectId')).aggregate(Sum('amount'))["amount__sum"]
+            if total_donates == None:
+                total_donates = 0
 
             userBalance = User.objects.values_list('balance', flat=True).filter(id=request.GET.get('userId'))
             print("hhhh")
