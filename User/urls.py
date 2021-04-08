@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
-from .views import authentcation
+from .views import authentcation, user_profile
 
 urlpatterns = [
     path("register/", authentcation.UserRegisterView, name="register"),
@@ -39,6 +39,7 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path('user',user_profile.show),
     # path("edit_profile/", authentcation.UserEditView.as_view(), name="edit_profile"),
     url(r"^user/(?P<user_id>\d+)/$", authentcation.edit, name="edit_profile"),
     url(
