@@ -18,7 +18,10 @@ def index(request):
     projectPic=[]
        
     projectDic={}
+    projectRecentDic={}
     #Search by tag
+    recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
+    projectRecentDic=projectZip(recentProjects,projectPic)
     if request.method=="POST":
         tags=Tag.objects.filter(tag_name=request.POST.get("search"))
         filteredProjects=[]
@@ -26,13 +29,11 @@ def index(request):
             filteredProjects.append(UserProject.objects.get(id=tag.project_id))
         
         projectDic=projectZip(filteredProjects,projectPic)     
-        return render(request,"project/index.html",{'projects':projectDic,"recentProjects":projectDic})
+        return render(request,"project/index.html",{'projects':projectDic,"recentProjects":projectRecentDic})
     #filter by the most recent 6 projects
-    recentProjects=UserProject.objects.all().order_by('-created_at')[:6]
     #return HttpResponse(recentProjects)
-    projectDic=projectZip(recentProjects,projectPic)
       
-    return render(request, "project/index.html",{"recentProjects":projectDic})
+    return render(request, "project/index.html",{"recentProjects":projectRecentDic})
 
 def projectZip(projects,projectPic):
     projectDic={}
