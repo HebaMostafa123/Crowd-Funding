@@ -16,14 +16,15 @@ urlpatterns = [
     path('project/form', crowd_project.project_form),
     path('project/list', crowd_project.project_list,name="list"),
     path('project/form', crowd_project.project_form,name="form"),
-    url(r'^project/(?P<project_id>\d+)/$', showProject.show, name='hatoom'),
+    url(r'^project/(?P<project_id>\d+)/$', showProject.show, name='showProject'),
     path('project/comment', showProject.comment, name='comment'),
     url('project/rate', showProject.rate, name='rate'),
     url('project/donate', showProject.donate, name='donate'),
     url('project/report', showProject.report, name='report-project'),
     url('comment/report', showProject.reportComment, name='report-comment'),
+    path('project/userProjects', crowd_project.user_project_list , name="list"),
 
-    url(r'^project/category/(?P<category_id>\d+)/$', crowd_project.category_list, name='category'),
+                  url(r'^project/category/(?P<category_id>\d+)/$', crowd_project.category_list, name='category'),
 
 
 

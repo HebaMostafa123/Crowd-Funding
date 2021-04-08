@@ -84,6 +84,8 @@ def donate(request):
         return redirect('login')
 
     if request.is_ajax():
+            # check donation
+
             userBalance = User.objects.values_list('balance', flat=True).filter(id=request.GET.get('userId'))
             print("hhhh")
             balance = userBalance[0]
