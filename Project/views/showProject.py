@@ -9,6 +9,9 @@ from django.db.models import Avg
 from User.models import User
 
 def show(request,project_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     project = get_object_or_404(UserProject, id=project_id)
     projectPics=ProjectPicture.objects.filter(project_id=project.id)
     picArr=[]
@@ -29,6 +32,9 @@ def show(request,project_id):
 
 
 def comment(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     comm = ProjectComment.objects.create(
         comment_body=request.POST.get('comment_body'), user_id=request.POST.get('user_id'),
         project_id=request.POST.get('project_id'),
@@ -37,6 +43,8 @@ def comment(request):
     return redirect( "list")
 
 def report(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     report = ProjectReport.objects.create(
         report_body=request.POST.get('report_body'), user_id=request.POST.get('user_id'),
         project_id=request.POST.get('project_id'),
@@ -44,6 +52,9 @@ def report(request):
     return redirect( "list")
 
 def reportComment(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     report = CommentReport.objects.create(
         report_body=request.POST.get('report_body'), user_id=request.POST.get('user_id'),
         commment_id=request.POST.get('commment_id'),
@@ -51,6 +62,9 @@ def reportComment(request):
     return redirect("list")
 
 def rate(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     if request.is_ajax():
         previous_rate_count = ProjectRate.objects.filter(project_id=request.GET.get('proectId'), user_id=request.GET.get('userId')).count()
         if previous_rate_count == 0:
@@ -66,6 +80,9 @@ def rate(request):
 
 
 def donate(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     if request.is_ajax():
             userBalance = User.objects.values_list('balance', flat=True).filter(id=request.GET.get('userId'))
             print("hhhh")
