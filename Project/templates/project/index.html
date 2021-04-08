@@ -4,29 +4,58 @@
 
 {% block content %}
 
-    <section class="carosal-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="client owl-carousel owl-theme">
 
-                        {% for project in heighest_rated_projects %}
-                            <div class="item">
-                                <div class="text">
-                                    <h3>{{ project.title }}</h3>
-                                    <p>{{ project.details }} </p>
-                                    <h5 class="white-button"><a href="{{project.id}}">DONATE NOW</a></h5>
-{#                                    <h5><a href="#">CONTACT US</a></h5>#}
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-2">
+            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+            <div id="sidebar" class="well sidebar-nav">
+                <h5><i class="glyphicon glyphicon-home"></i>
+                    <b>Our Categories</b>
+                </h5>
+                <ul class="nav nav-pills nav-stacked">
+                    {% for category in categories %}
+                        <li><a href="category/{{ category.id }}">{{ category.name }}</a></li>
+                    {% endfor %}
 
-                        {% endfor %}
+                </ul>
 
-                    </div>
-                </div>
             </div>
         </div>
-    </section>
+        <div class="col-md-10">
+            <section class="carosal-area">
+                <div id="overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="client owl-carousel owl-theme">
+                                {% for project in highest_rated_projects %}
+                                    <div class="item">
+                                        <div class="text">
+                                            <h3>{{ project.title }}</h3>
+                                            <p>{{ project.details }} </p>
+                                            <h5 class="white-button"><a href="{{ project.id }}">DONATE NOW</a></h5>
+                                            {#                                    <h5><a href="#">CONTACT US</a></h5>#}
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
     <section class="our_activity">
         <h2>OUR ACTIVITY</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor <br> incididunt ut labore et
@@ -112,25 +141,28 @@
         </div>
     </section>
 
-        <section class="events_section_area">
-            <h2>Featured PROJECTS</h2>
-            <div class="container">
-                <div class="row">
-                    {%for featuredProject,pic in featuredProjectsDic.items%}
+    <section class="events_section_area">
+        <h2>Featured PROJECTS</h2>
+        <div class="container">
+            <div class="row">
+                {% for featuredProject,pic in featuredProjectsDic.items %}
                     <div class="col-md-4 col-xs-12">
                         <div class="events_single">
-                            <img src="{{pic}}" alt="" style="width: 400px; height: 500px;">
-                            <p><span class="event_left"><i class="material-icons">access_time</i>{{featuredProject.created_at}}</span><span class="event_right"><i class="material-icons">done</i>{{project.end_date}}</span></p>
+                            <img src="{{ pic }}" alt="" style="width: 400px; height: 500px;">
+                            <p><span class="event_left"><i
+                                    class="material-icons">access_time</i>{{ featuredProject.created_at }}</span><span
+                                    class="event_right"><i class="material-icons">done</i>{{ project.end_date }}</span>
+                            </p>
                             <div class="clear"></div>
-                            <h3>{{featuredProject.project.title}}</h3>
-                            <h6>{{featuredProject.project.details}}</h6>
+                            <h3>{{ featuredProject.project.title }}</h3>
+                            <h6>{{ featuredProject.project.details }}</h6>
                         </div>
                     </div>
-                    {%endfor%}
+                {% endfor %}
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
     <div class="block-wrapper">
         <div class="container">
