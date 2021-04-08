@@ -5,7 +5,7 @@ from Project.models.user_project import UserProject,ProjectComment, ProjectRate,
 from Project.forms.report_form import ProjectReportForm
 from Project.models.project_picture import ProjectPicture
 from datetime import datetime
-from django.db.models import Avg
+from django.db.models import  Avg, Sum
 from User.models import User
 
 def show(request,project_id):
@@ -85,11 +85,16 @@ def donate(request):
 
     if request.is_ajax():
             # check donation
+            total_target = UserProject.objects.values_list('total_target', flat=True).filter(id=request.GET.get('proectId'))
+            total_donates =ProjectDonation.objects.filter(project_id= request.GET.get('proectId')).aggregate(Sum('amount'))["amount__sum"]
 
             userBalance = User.objects.values_list('balance', flat=True).filter(id=request.GET.get('userId'))
             print("hhhh")
             balance = userBalance[0]
-            if( int(userBalance[0]) >= int(request.GET.get("donate"))):
+            # if()
+            if(int(total_target[0])-int(total_donates) <int(request.GET.get('donate'))):
+                return HttpResponse('project doesnot need this amount you can only donate with %s' % str(int(total_target[0])-int(total_donates) ))
+            elif( int(userBalance[0]) >= int(request.GET.get("donate"))):
                 dona = ProjectDonation.objects.create(
                     amount=float(request.GET.get('donate')), user_id=request.GET.get('userId'),
                     project_id=request.GET.get('proectId'))
