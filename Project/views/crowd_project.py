@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
@@ -5,8 +6,9 @@ from django.template import RequestContext
 
 from Project.forms.project_form import ProjectForm, ImageForm
 from Project.forms.project_form import TagForm
-from Project.models.user_project import UserProject
+from Project.models.user_project import UserProject, ProjectRate
 from Project.models.featured_project import FeaturedProject
+
 from Project.models.project_picture import ProjectPicture
 from Project.models.tag import Tag
 from datetime import datetime
@@ -33,9 +35,12 @@ def index(request):
     #return HttpResponse(recentProjects)
     projectDic=projectZip(recentProjects,projectPic)
 
-    featuredProjects= FeaturedProject.objects.all().order_by('-created_at')[:2]
+    #get heighest rated project
+    heighest_rated_projects_ids = ProjectRate.objects.values_list('project_id', flat=True).annotate(avg = Avg('rate')).order_by('-avg')[:5]
+    heighest_rated_projects = UserProject.objects.filter(projectRated__in = list(heighest_rated_projects_ids))
+    featuredProjects= FeaturedProject.objects.all().order_by('-created_at')[:5]
     featuredProjectsDic=projectZipFeatured(featuredProjects,projectPic)
-    return render(request, "project/index.html",{"recentProjects":projectDic,"featuredProjectsDic":featuredProjectsDic})
+    return render(request, "project/index.html",{"recentProjects":projectDic,"featuredProjectsDic":featuredProjectsDic, "heighest_rated_projects": heighest_rated_projects})
 
 def projectZip(projects,projectPic):
     projectDic={}
@@ -95,7 +100,6 @@ def update(request, project_id):
                 tag.updated_at=datetime.now()
                 tag.save()
 
-    print("haha new tag: ")
     print(tagToUpdate)
     
     # for tag
@@ -137,7 +141,6 @@ def project_form(request):
                 photo.save()
             return redirect('list')
         else:
-            print("111111111111111111111111111111111111111111")
             print(form.errors)
 
             return HttpResponse(form.errors)
