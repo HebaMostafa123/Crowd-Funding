@@ -1,20 +1,17 @@
-from django.db.models import Avg
-from django.forms import modelformset_factory
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.template import RequestContext
-
-from Project.forms.project_form import ProjectForm, ImageForm
-from Project.forms.project_form import TagForm
-from Project.models.category import Category
-from Project.models.user_project import UserProject, ProjectRate
-from Project.models.featured_project import FeaturedProject
-
-from Project.models.project_picture import ProjectPicture
-from Project.models.tag import Tag
 from datetime import datetime
 
+from django.db.models import Avg
+from django.forms import modelformset_factory
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template import RequestContext
+from Project.forms.project_form import ImageForm, ProjectForm, TagForm
 from Project.models import ProjectPicture
+from Project.models.category import Category
+from Project.models.featured_project import FeaturedProject
+from Project.models.project_picture import ProjectPicture
+from Project.models.tag import Tag
+from Project.models.user_project import ProjectRate, UserProject
 
 
 def index(request):
