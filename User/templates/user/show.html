@@ -32,9 +32,33 @@
               <li class="list-group-item"><h1>Phone number:{{user.phone_number}}</h1></li>
               <br>
               <a type="button" class="btn btn-primary" href="{% url 'edit_profile' user.id %}">Edit your profile</a>
-              <a type="button" class="btn btn-danger" href="{% url 'user_delete' user.id %}">Delete your profile</a>
+             
 
-
+              <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#commentreport{{ comment.id }}">Delete your profile</a>
+              <div class="modal  fade " id="commentreport{{ comment.id }}" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                    <div class="modal-body">
+                                                        <label name="report_body" rows="4">Are you sure do you want to delete your account?</label>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a class="btn btn-primary" href="{% url 'user_delete' user.id %}">Delete </a></li>
+                                                    </div>
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+            
+            
+            
             </ul>
          
       </div>
