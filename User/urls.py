@@ -39,7 +39,7 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    path('user',user_profile.show),
+    path('project/user',user_profile.show),
     # path("edit_profile/", authentcation.UserEditView.as_view(), name="edit_profile"),
     url(r"^user/(?P<user_id>\d+)/$", authentcation.edit, name="edit_profile"),
     url(
