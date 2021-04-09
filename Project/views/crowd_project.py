@@ -40,10 +40,15 @@ def index(request):
 
     if request.method == "POST":
         # Search by tag
-        tags = Tag.objects.filter(tag_name=request.POST.get("search"))
         filteredProjects = []
-        for tag in tags:
-            filteredProjects.append(UserProject.objects.get(id=tag.project_id))
+        searchByProject=UserProject.objects.filter(title=request.POST.get("search"))
+        if    searchByProject.exists():
+            filteredProjects=searchByProject
+        else:
+            tags = Tag.objects.filter(tag_name=request.POST.get("search"))
+        
+            for tag in tags:
+                filteredProjects.append(UserProject.objects.get(id=tag.project_id))
         projectDic = projectZip(filteredProjects, projectPic)
         return render(request, "project/index.html", {'projects': projectDic, "recentProjects": projectRecentDic,
                                                       "featuredProjectsDic": featuredProjectsDic,
