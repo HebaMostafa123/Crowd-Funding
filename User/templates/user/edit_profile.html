@@ -1,0 +1,236 @@
+{% extends "project/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    .card{
+        width: 70%;
+        text-align: center;
+        margin: 40px auto;
+        height: 794px;
+    }
+    body {
+    background-color: #f9f9fa
+}
+
+.padding {
+    padding: 3rem !important
+}
+
+.user-card-full {
+    overflow: hidden
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border: none;
+    margin-bottom: 30px;
+    height: 682px;
+}
+
+.m-r-0 {
+    margin-right: 0px
+}
+
+.m-l-0 {
+    margin-left: 0px
+}
+
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px
+}
+
+.container{
+  width: auto;
+}
+.bg-c-lite-green {
+    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+    background: linear-gradient(to right, #ee5a6f, #f29263)
+}
+
+.user-profile {
+    padding: 20px 0;
+    background-color: #bbdbdc;
+    height: 803px;
+}
+
+.card-block {
+    padding: 1.25rem
+}
+
+.m-b-25 {
+    margin-bottom: 25px
+}
+
+.img-radius {
+  border-radius: 64%;
+    width: 100%;
+}
+
+h6 {
+    font-size: 14px
+}
+
+.card .card-block p {
+    line-height: 25px
+}
+
+@media only screen and (min-width: 1400px) {
+    p {
+        font-size: 14px
+    }
+}
+
+.card-block {
+    padding: 1.25rem
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important
+}
+
+.card .card-block p {
+    line-height: 25px
+}
+
+.m-b-10 {
+    margin-bottom: 10px
+}
+
+.text-muted {
+    color: #919aa3 !important
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0
+}
+
+.f-w-600 {
+    font-weight: 600
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.m-t-40 {
+    margin-top: 20px
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important
+}
+.btn{
+
+  /* margin-top: 70px; */
+
+}
+
+.m-b-10 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.m-t-40 {
+    margin-top: 20px
+}
+
+.user-card-full .social-link li {
+    display: inline-block
+}
+
+.user-card-full .social-link li a {
+    font-size: 20px;
+    margin: 0 10px 0 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.edit-btn{
+    margin-top: 45px;
+}
+</style>
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+      <div class="row container d-flex justify-content-center">
+          <div class="col-xl-6 col-md-12">
+              <div class="card user-card-full">
+                  <div class="row m-l-0 m-r-0">
+                    <form action="{% url 'user_update' user.id %}" method="POST" enctype="multipart/form-data">
+                        {%csrf_token%}
+                        <div class="col-sm-4  user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25"> <img src="{{ pic }}" class="img-radius" alt="User-Profile-Image">{{form.profile_picutre}} </div>
+                                <!-- <h1>{{form.username}}</h1> -->
+                               
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h1 class="m-b-20  b-b-default">Information</h1>
+                                <div class="row">
+  
+                                  <div class="col-sm-6">
+                                    <h1 class="m-b-20 f-w-600">First name</h1>
+                                    <h1 class="text-muted b-b-default">{{form.first_name}}</h1>
+                                </div>
+                                
+  
+                                <div class="col-sm-6">
+                                  <h1 class="m-b-20 f-w-600 ">last name</h1>
+                                  <h1 class="text-muted b-b-default ">{{form.last_name}}</h1>
+                              </div>
+                             
+  
+                                    <div class="col-xlg-6">
+                                        <h1 class="m-b-10 f-w-600">Email</h1>
+                                        <h1 class="text-muted b-b-default">{{user.email}}</h1>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h1 class="m-b-10 f-w-600">User Name</h1>
+                                        <h1 class="text-muted b-b-default">{{form.username}}</h1>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h1 class="m-b-10 f-w-600">Phone</h1>
+                                        <h1 class="text-muted b-b-default">{{form.phone_number}}</h1>
+                                    </div>
+                                    
+                                   
+                                    <div class="col-sm-6">
+                                      <h1 class="m-b-10 f-w-600">Birthdate</h1>
+                                      <h1 class="text-muted b-b-default">{{form.birth_date}}</h1>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <h1 class="m-b-10 f-w-600">Facebook</h1>
+                                    <h1 class="text-muted b-b-default">{{form.faceboock_url}}</h1>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h1 class="m-b-10 f-w-600">Country</h1>
+                                    <h1 class="text-muted b-b-default">{{form.country}}</h1>
+                                </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary offset-5 mt-2 edit-btn" value="Update your profile">
+                            </form>
+                            </div>
+                        </div>
+                    
+                    </form>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

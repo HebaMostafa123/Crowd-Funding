@@ -1,0 +1,26 @@
+{% extends "project/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <table class="table">
+    <thead>
+      <tr>
+          <th>project name</th>
+        <th scope="col">amount</th>
+        <th scope="col">date</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user_donation in user_donations%}
+<tr>
+    <td>{{ user_donation.project }}</td>
+    <td>{{ user_donation.amount }}</td>
+    <td>{{ user_donation.created_at }}</td>
+    <td>{{ user_donation.created_at }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+{% endblock %}

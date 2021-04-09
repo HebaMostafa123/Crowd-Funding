@@ -1,0 +1,199 @@
+{% extends "project/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+            <div id="sidebar" class="well sidebar-nav">
+                <h5><i class="glyphicon glyphicon-home"></i>
+                    <b>Our Categories</b>
+                </h5>
+                <ul class="nav nav-pills nav-stacked">
+                    {% for category in categories %}
+                        <li><a href="/project/category/{{ category.id }}">{{ category.name }}</a></li>
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-10">
+            <section class="carosal-area">
+                <div id="overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="client owl-carousel owl-theme">
+                                {% for project in highest_rated_projects %}
+                                    <div class="item">
+                                        <div class="text">
+                                            <h3>{{ project.title }}</h3>
+                                            <p>{{ project.details }} </p>
+                                            <h5 class="white-button"><a href="/project/{{ project.id }}">DONATE NOW</a>
+                                            </h5>
+                                            {#                                    <h5><a href="#">CONTACT US</a></h5>#}
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+    <section class="letast_news">
+        <h2>RECENT PROJECTS</h2>
+        <div class="container">
+            <div class="row">
+
+                {% for project,pic in recentProjects.items %}
+
+                    <div class="col-md-4">
+                        <div class="single_news">
+                            <img style="width: 400px; height: 500px;" src="{{ pic }}" alt="">
+                            <div class="texts">
+                                start date:
+                                <p class="date">{{ project.start_date }}</p>
+                                end date:
+                                <p class="date">{{ project.end_date }}</p>
+                                    donation progress:
+                                <p class="date">{{ project.target_donate_percentage }}%</p>
+                                <h3>{{ project.title }}</h3>
+                                <p class="test">{{ project.details }} </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+
+
+    {#    <section class="events_section_area">#}
+    {#        <h2>RECENT PROJECTS</h2>#}
+    {#        <div class="container">#}
+    {#            <div class="row">#}
+    {#                #}
+    {##}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+
+    <section class="events_section_area">
+        <h2>Featured PROJECTS</h2>
+        <div class="container">
+            <div class="row">
+                {% for featuredProject,pic in featuredProjectsDic.items %}
+                    <div class="col-md-4 col-xs-12">
+                        <div class="events_single">
+                            <img src="{{ pic }}" alt="" style="width: 400px; height: 500px;">
+                            <p><span class="event_left"><i
+                                    class="material-icons">access_time</i>{{ featuredProject.created_at }}</span><span
+                                    class="event_right"><i class="material-icons">done</i>{{ project.end_date }}</span>
+                            </p>
+                            <div class="clear"></div>
+                            <h3>{{ featuredProject.project.title }}</h3>
+                            <h6>{{ featuredProject.project.details }}</h6>
+                                    donation progress:
+                                <p class="date">{{ featuredProject.target_donate_percentage }}%</p>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <div class="block-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-6 for-border">
+                    <div class="block">
+                        <p><i class="material-icons">favorite</i></p>
+                        <p class="counter-wrapper"><span class="fb"></span></p>
+                        <p class="text-block">CAUSES</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6 for-border">
+                    <div class="block">
+                        <p><i class="material-icons">language</i></p>
+                        <p class="counter-wrapper"><span class="code"></span></p>
+                        <p class="text-block">PLACES</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6 for-border">
+                    <div class="block">
+                        <p><i class="material-icons">person_add</i></p>
+                        <p class="counter-wrapper"><span class="bike"></span></p>
+                        <p class="text-block">VOLUNTEERS</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6 for-border">
+                    <div class="block">
+                        <p><i class="material-icons">people</i></p>
+                        <p class="counter-wrapper"><span class="coffee"></span></p>
+                        <p class="text-block">SAVED</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="our_cuauses">
+        {% if projects %}
+            <h2>Filtered projects</h2>
+        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="our_cuauses_single owl-carousel owl-theme">
+
+                        {% for project,pic in projects.items %}
+
+                            <div class="item">
+                                <img src="{{ pic }}" alt="{{ pic }}">
+                                <div class="for_padding">
+                                    <h2>{{ project.title }}</h2>
+                                    <p>{{ project.details }}</p>
+                                    <div class="progress-text">
+                                        <p class="progress-top">50%</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="50"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:50%"></div>
+                                        </div>
+                                        <p class="progress-left">Raised: <span>$1200</span></p>
+                                        <p class="progress-right">Goal: <span>${{ project.total_target }}</span></p>
+                                    </div>
+                                    <h2 class="borderes"><a href="/project/{{ project.id }}">show</a></h2>
+                                    <h2 class="borderes"><a href="#">DONATE NOW</a></h2>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="clear"></div>
+
+
+
+
+{% endblock %}
