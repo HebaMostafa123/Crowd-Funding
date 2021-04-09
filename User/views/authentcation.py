@@ -6,12 +6,12 @@ from django.contrib import messages
 # from users.form import Usermodelform
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.forms import inlineformset_factory
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import DjangoUnicodeDecodeError, force_bytes, force_text
@@ -19,7 +19,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import generic
 from django.views.generic import View
 from six import text_type
-from User.forms import SignUpForm
+from User.forms import SignUpForm, UserEditForm
 
 # Create your views here.
 from User.models import User
@@ -81,6 +81,31 @@ def UserRegisterView(request):
 
     context = {"form": form}
     return render(request, "registration/registration.html", context)
+
+
+def edit(request, user_id):
+    user = User.objects.get(id=user_id)
+    form = UserEditForm(instance=user)
+    userPic = User.objects.filter(id=request.user.id)[0].profile_picutre.url
+    return render(
+        request, "user/edit_profile.html", {"user": user, "form": form, "pic": userPic}
+    )
+
+
+def update(request, user_id):
+    user = User.objects.get(id=user_id)
+    form = UserEditForm(request.POST, request.FILES, instance=user)
+    userPic = User.objects.filter(id=request.user.id)[0].profile_picutre.url
+    if form.is_valid():
+        form.save()
+        return redirect("index")
+    return render(request, "user/edit_profile.html", {"user": user, "pic": userPic})
+
+
+def delete(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    return redirect("logout")
 
 
 class ActivateAccountView(View):

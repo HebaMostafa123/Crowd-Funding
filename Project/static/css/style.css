@@ -3,10 +3,17 @@
     height: 50px;
 }
 
-.contact>p {
+
+.contact > p {
     line-height: 50px;
     margin: 0;
     padding: 0;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
 }
 
 .header .header-top .contact p a {
@@ -21,7 +28,7 @@
     margin-right: 45px;
 }
 
-.join-us>p {
+.join-us > p {
     background: #089549 none repeat scroll 0 0;
     line-height: 50px;
     margin: 0;
@@ -57,8 +64,8 @@
     padding-right: 0;
 }
 
-.nav>li>a:hover,
-.nav>li>a:focus {
+.nav > li > a:hover,
+.nav > li > a:focus {
     text-decoration: none;
     background-color: transparent;
 }
@@ -67,11 +74,11 @@
     margin: 29px 0;
 }
 
-.main-logo>img {
+.main-logo > img {
     display: inline-block;
 }
 
-.main-logo>h2 {
+.main-logo > h2 {
     display: inline-block;
     font-size: 20px;
     font-weight: bold;
@@ -80,19 +87,19 @@
 }
 
 #overlay {
-  position: absolute; /* Sit on top of the page content */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+    position: absolute; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
 }
 
-.client{
+.client {
     z-index: 5;
 }
 
@@ -107,7 +114,7 @@
     margin-bottom: 50px;
 }
 
-.carosal-area .text>h3 {
+.carosal-area .text > h3 {
     color: #fff;
     font-size: 35px;
     font-weight: bold;
@@ -115,7 +122,7 @@
     margin-top: 210px;
 }
 
-.carosal-area .text>p {
+.carosal-area .text > p {
     color: #fff;
     font-family: "Roboto", sans-serif;
     font-size: 15px;
@@ -124,13 +131,13 @@
     margin-top: 28px;
 }
 
-.carosal-area .text>h5 {
+.carosal-area .text > h5 {
     display: inline-block;
     margin-left: 10px;
     margin-top: 52px;
 }
 
-.carosal-area .text>h5 a {
+.carosal-area .text > h5 a {
     border: 1px solid #fff;
     border-radius: 25px;
     color: #fff;
@@ -141,7 +148,7 @@
     text-decoration: none;
 }
 
-.carosal-area .text>h5.white-button a {
+.carosal-area .text > h5.white-button a {
     background: #fff;
     color: #01d262;
 }
@@ -196,7 +203,7 @@
 }
 */
 
-.wrapper section>h2 {
+.wrapper section > h2 {
     color: #3c354e;
     font-family: "Roboto", sans-serif;
     font-size: 32px;
@@ -209,7 +216,7 @@
     margin: 115px 0 50px;
 }
 
-.wrapper section>h2::before {
+.wrapper section > h2::before {
     background: #01d262 none repeat scroll 0 0;
     bottom: -13px;
     content: "";
@@ -220,7 +227,7 @@
     margin: 0 auto;
 }
 
-.wrapper section>p {
+.wrapper section > p {
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -292,16 +299,16 @@
     background: #fff;
 }
 
-.our_activity .single-Promo:hover>h2 a {
+.our_activity .single-Promo:hover > h2 a {
     color: #01d262;
 }
 
-.our_activity .single-Promo:hover>.promo-icon i {
+.our_activity .single-Promo:hover > .promo-icon i {
     background: #01d262;
     color: #fff;
 }
 
-.our_activity .single-Promo:hover>h2::before {
+.our_activity .single-Promo:hover > h2::before {
     background: #01d262;
     color: #fff;
 }
@@ -552,7 +559,7 @@
     width: 0%;
 }
 
-.wrapper .our_cuauses>p {
+.wrapper .our_cuauses > p {
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -576,11 +583,11 @@
     margin-bottom: 20px
 }
 
-.our_cuauses .our_cuauses_single .item .for_padding:hover>h2 {
+.our_cuauses .our_cuauses_single .item .for_padding:hover > h2 {
     color: #01d262;
 }
 
-.our_cuauses .our_cuauses_single .item .for_padding:hover>h2 a {
+.our_cuauses .our_cuauses_single .item .for_padding:hover > h2 a {
     color: #fff;
     background: #01d262;
 }
@@ -624,11 +631,13 @@
     padding-left: 30%;
     padding-top: 5%;
 }
-.amount input{
+
+.amount input {
     padding-left: 5px;
     color: black;
     /*background-color: #1cb060;*/
 }
+
 .donors .donors_input {
     background: #01d262 none repeat scroll 0 0;
     float: left;
@@ -1150,6 +1159,7 @@
 .clear {
     clear: both;
 }
-.footer_carosal_icon .owl-nav{
+
+.footer_carosal_icon .owl-nav {
     display: none;
 }

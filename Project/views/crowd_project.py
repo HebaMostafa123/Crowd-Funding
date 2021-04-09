@@ -1,20 +1,23 @@
-from django.db.models import Avg
-from django.forms import modelformset_factory
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.template import RequestContext
 
-from Project.forms.project_form import ProjectForm, ImageForm
-from Project.forms.project_form import TagForm
+from datetime import datetime
+
+from django.db.models import Avg, Sum
+
+from django.forms import modelformset_factory
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template import RequestContext
+from Project.forms.project_form import ImageForm, ProjectForm, TagForm
+from Project.models import ProjectPicture
 from Project.models.category import Category
-from Project.models.user_project import UserProject, ProjectRate
+
+from Project.models.user_project import UserProject, ProjectRate, ProjectDonation
 from Project.models.featured_project import FeaturedProject
+from User.models import User
 
 from Project.models.project_picture import ProjectPicture
 from Project.models.tag import Tag
-from datetime import datetime
-
-from Project.models import ProjectPicture
+from Project.models.user_project import ProjectRate, UserProject
 
 
 def index(request):
@@ -53,9 +56,7 @@ def index(request):
 
 def projectZip(projects, projectPic):
     projectDic = {}
-
     for project in projects:
-        print("helooo")
         projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
     for project in projects:
         for picture in projectPic:
@@ -84,6 +85,12 @@ def project_list(request):
         return redirect('login')
     return render(request, "project/project_list.html", {'projects': UserProject.objects.all()})
 
+
+def user_project_list(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    # return HttpResponse(UserProject.objects.filter(owner=request.user.id))
+    return render(request, "project/project_list.html", {'projects': UserProject.objects.filter(owner=request.user.id)})
 
 def edit(request, project_id):
     if not request.user.is_authenticated:
@@ -165,9 +172,18 @@ def project_form(request):
 def delete(request, project_id):
     if not request.user.is_authenticated:
         return redirect('login')
-
+    
     project = get_object_or_404(UserProject, id=project_id)
-    project.delete()
+    currentAmout=ProjectDonation.objects.filter(project_id=project_id).aggregate(Sum('amount'))["amount__sum"]
+    totalTarget=UserProject.objects.get(id=project_id).total_target
+    
+    if currentAmout  is  None or (currentAmout/totalTarget)*100<25.0:
+        projectToBeDeleted=ProjectDonation.objects.filter(project_id=project_id)
+        for projectDonation in projectToBeDeleted:
+            userBalance = User.objects.values_list('balance', flat=True).filter(id=projectDonation.user_id)
+            userNew=User.objects.filter(id=projectDonation.user_id).update(balance=int(userBalance[0]) + int(projectDonation.amount))
+            
+        project.delete()
     return redirect("list")
 
 
@@ -186,6 +202,5 @@ def featuredProjects(request):
 def category_list(request, category_id):
     if not request.user.is_authenticated:
         return redirect('login')
-
     projects = UserProject.objects.filter(category_id=category_id)
     return render(request, "project/category.html", {'projects': projects})
