@@ -24,7 +24,7 @@ urlpatterns = [
     url('comment/report', showProject.reportComment, name='report-comment'),
     path('project/userProjects', crowd_project.user_project_list , name="list"),
 
-                  url(r'^project/category/(?P<category_id>\d+)/$', crowd_project.category_list, name='category'),
+    url(r'^project/category/(?P<category_id>\d+)/$', crowd_project.category_list, name='category'),
 
 
 
@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^project/(?P<project_id>\d+)/edit$', crowd_project.edit, name='project_edit'),
     url(r'^project/(?P<project_id>\d+)/update$', crowd_project.update, name='project_update'),
     url(r'^project/(?P<project_id>\d+)/delete$', crowd_project.delete, name='project_delete'),
-    path('login', authentcation.logoutUser, name='logout'),
+    path('logout', authentcation.logoutUser, name='logout'),
     path('userDonation', userDonation.donations, name='userDonation'),
 
               ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
