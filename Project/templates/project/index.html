@@ -67,6 +67,8 @@
                                 <p class="date">{{ project.start_date }}</p>
                                 end date:
                                 <p class="date">{{ project.end_date }}</p>
+                                    donation progress:
+                                <p class="date">{{ project.target_donate_percentage }}%</p>
                                 <h3>{{ project.title }}</h3>
                                 <p class="test">{{ project.details }} </p>
                             </div>
@@ -105,6 +107,9 @@
                             <div class="clear"></div>
                             <h3>{{ featuredProject.project.title }}</h3>
                             <h6>{{ featuredProject.project.details }}</h6>
+                                    donation progress:
+                                <p class="date">{{ featuredProject.target_donate_percentage }}%</p>
+
                         </div>
                     </div>
                 {% endfor %}
