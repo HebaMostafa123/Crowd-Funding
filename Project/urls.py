@@ -9,6 +9,7 @@ from .views import crowd_project, showProject, userDonation
 
 urlpatterns = [
     # path('', include('Project.urls')),
+
     path("project/", crowd_project.index, name="index"),
     path("project/form", crowd_project.project_form),
     path("project/list", crowd_project.project_list, name="list"),
@@ -18,6 +19,7 @@ urlpatterns = [
     url("project/rate", showProject.rate, name="rate"),
     url("project/donate", showProject.donate, name="donate"),
     url("project/report", showProject.report, name="report-project"),
+   path('project/userProjects', crowd_project.user_project_list , name="list"),
     url("comment/report", showProject.reportComment, name="report-comment"),
     url(
         r"^project/category/(?P<category_id>\d+)/$",
@@ -25,8 +27,7 @@ urlpatterns = [
         name="category",
     ),
     url(r"^project/(?P<project_id>\d+)/edit$", crowd_project.edit, name="project_edit"),
-    url(
-        r"^project/(?P<project_id>\d+)/update$",
+    url(r"^project/(?P<project_id>\d+)/update$",
         crowd_project.update,
         name="project_update",
     ),
@@ -38,3 +39,5 @@ urlpatterns = [
     path("logout", authentcation.logoutUser, name="logout"),
     path("userDonation", userDonation.donations, name="userDonation"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

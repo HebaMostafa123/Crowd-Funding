@@ -10,6 +10,9 @@
     </p>
     <h1>{{ project.total_target }}</h1>
     <h1>{{ project.category }}</h1>
+    {% for pic in pictures %}
+    <img src="{{ pic }}" alt="" style="width: 400px; height: 500px;">
+    {%endfor%}
 
 
     {% ifnotequal request.user.id project.owner_id %}
@@ -242,12 +245,14 @@
                     data: data,
                     type: 'get',
                     success: function (data) {
+                        console.log(data)
                         $("#donateMsg").empty()
                         if (data == "donated successfully")
                             $("#donateMsg").append("<h1>Thanks for your patience </h1>")
+                        else if (data == "you don't have this amount of money in your balance")
+                            $("#donateMsg").append("<h1>you don't have this balance </h1>")
                         else
-                            $("#donateMsg").append("<h1>you don't have this palance </h1>")
-
+                            $("#donateMsg").append(`<h1> ${data} </h1>`)
                         if (data.is_taken) {
                             alert(data.error_message);
                         }
