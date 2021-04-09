@@ -209,7 +209,6 @@
 
                     </div>
 
-
                 </div>
 
 
@@ -301,6 +300,35 @@
 
 
     {% endif %}
+
+
+    <section class="letast_news">
+        <h2>RELATED PROJECTS</h2>
+        <div class="container">
+            <div class="row">
+
+                {% for project,pic in relatedPorjects.items %}
+
+                    <div class="col-md-4">
+                        <div class="single_news">
+                            <img style="width: 400px; height: 500px;" src="{{ pic }}" alt="">
+                            <div class="texts">
+                                start date:
+                                <p class="date">{{ project.start_date }}</p>
+                                end date:
+                                <p class="date">{{ project.end_date }}</p>
+                                donation progress:
+                                <p class="date">{{ project.target_donate_percentage }}%</p>
+                                <h3>{{ project.title }}</h3>
+                                <p class="test">{{ project.details }} </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
 
 
 {% endblock content %}
