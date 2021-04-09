@@ -44,7 +44,8 @@ class ProjectReport(models.Model):
     report_body= models.TextField()
     created_at= models.DateTimeField(default=datetime.now, blank=True)
     updated_at = models.DateTimeField(default=datetime.now)
-
+    def __str__(self):
+        return self.report_body
 
 class ProjectRate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE , related_name="projectRater")
@@ -69,3 +70,5 @@ class CommentReport(models.Model):
     report_body= models.TextField()
     created_at = models.DateTimeField(default=datetime.now, blank=True)
     updated_at = models.DateTimeField(default=datetime.now)
+    def __str__(self):
+        return self.commment
