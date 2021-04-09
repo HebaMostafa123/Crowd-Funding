@@ -7,6 +7,8 @@ from Project.models.project_picture import ProjectPicture
 from datetime import datetime
 from django.db.models import  Avg, Sum
 from User.models import User
+from Project.models.tag import Tag
+from Project.views.crowd_project import projectZip
 
 def show(request,project_id):
     if not request.user.is_authenticated:
@@ -14,6 +16,17 @@ def show(request,project_id):
 
     project = get_object_or_404(UserProject, id=project_id)
     projectPics=ProjectPicture.objects.filter(project_id=project.id)
+    #tags = Tag.objects.filter(tag_name=request.POST.get("search"))
+    relatedTag=Tag.objects.filter(project_id=project.id)[0].tag_name
+    tags=Tag.objects.filter(tag_name=relatedTag)
+    #return HttpResponse(tags)
+    filteredProjects=[]
+    projectPic=[]
+    projectDic=[]
+    for tag in tags:
+        if tag.project_id!=project_id:
+            filteredProjects.append(UserProject.objects.get(id=tag.project_id))
+        projectDic = projectZip(filteredProjects, projectPic)
     picArr=[]
     for pic in projectPics:       
         picArr.append(pic.project_picture.url)
@@ -28,7 +41,7 @@ def show(request,project_id):
 
 
         return render(request,"project/show.html",{'form':form,'reportForm':reportForm, 'project':project ,
-        'rate':rate, 'yellowRate': range(1, int(rate)+1), 'blackRate':range(int(rate+1),6),"pictures":picArr})
+        'rate':rate, 'yellowRate': range(1, int(rate)+1), 'blackRate':range(int(rate+1),6),"pictures":picArr,"relatedPorjects":projectDic})
 
 
 def comment(request):
