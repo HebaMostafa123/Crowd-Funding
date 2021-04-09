@@ -40,10 +40,15 @@ def index(request):
 
     if request.method == "POST":
         # Search by tag
-        tags = Tag.objects.filter(tag_name=request.POST.get("search"))
         filteredProjects = []
-        for tag in tags:
-            filteredProjects.append(UserProject.objects.get(id=tag.project_id))
+        searchByProject=UserProject.objects.filter(title=request.POST.get("search"))
+        if    searchByProject.exists():
+            filteredProjects=searchByProject
+        else:
+            tags = Tag.objects.filter(tag_name=request.POST.get("search"))
+        
+            for tag in tags:
+                filteredProjects.append(UserProject.objects.get(id=tag.project_id))
         projectDic = projectZip(filteredProjects, projectPic)
         return render(request, "project/index.html", {'projects': projectDic, "recentProjects": projectRecentDic,
                                                       "featuredProjectsDic": featuredProjectsDic,
@@ -57,6 +62,19 @@ def index(request):
 def projectZip(projects, projectPic):
     projectDic = {}
     for project in projects:
+        total_target = UserProject.objects.values_list('total_target', flat=True).filter(
+            id=project.id)
+        total_donates = \
+            ProjectDonation.objects.filter(project_id=project.id).aggregate(Sum('amount'))[
+                "amount__sum"]
+        if total_target[0] == None:
+            total_target[0] = 0
+        if total_donates == None:
+            total_donates = 0
+        target_donate_percentage = int(total_donates) / int(total_target[0]) * 100
+        # project["target_donate_percentage"] = target_donate_percentage
+        setattr(project, "target_donate_percentage", target_donate_percentage)
+
         projectPic.append(ProjectPicture.objects.filter(project_id=project.id)[0].project_picture.url)
     for project in projects:
         for picture in projectPic:
@@ -70,6 +88,18 @@ def projectZipFeatured(projects, projectPic):
     projectDic = {}
 
     for project in projects:
+        total_target = UserProject.objects.values_list('total_target', flat=True).filter(
+            id=project.project_id)
+        total_donates = \
+            ProjectDonation.objects.filter(project_id=project.project_id).aggregate(Sum('amount'))[
+                "amount__sum"]
+        if total_target[0] == None:
+            total_target[0] = 0
+        if total_donates == None:
+            total_donates = 0
+        target_donate_percentage = int(total_donates) / int(total_target[0]) * 100
+        setattr(project, "target_donate_percentage", target_donate_percentage)
+
         print("helooo")
         projectPic.append(ProjectPicture.objects.filter(project_id=project.project_id)[0].project_picture.url)
     for project in projects:
