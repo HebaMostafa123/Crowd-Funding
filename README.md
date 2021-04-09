@@ -12,13 +12,13 @@ Crowdfunding is the practice of funding a project or venture by raising small am
 
 ### Table of content
 
-- [Get Started]: https://github.com/HebaMostafa123/Crowd-Funding#get-started
+- [Get Started](https://github.com/HebaMostafa123/Crowd-Funding#get-started)
 
-- [Main Features]: https://github.com/HebaMostafa123/Crowd-Funding#main-features
+- [Main Features](https://github.com/HebaMostafa123/Crowd-Funding#main-features)
 
-- [Built with]: https://github.com/HebaMostafa123/Crowd-Funding#built-with
+- [Built with](https://github.com/HebaMostafa123/Crowd-Funding#built-with)
 
-- [About us]: https://github.com/HebaMostafa123/Crowd-Funding#about-us
+- [About us](https://github.com/HebaMostafa123/Crowd-Funding#about-us)
 
 ##  🔧Get Started
 
