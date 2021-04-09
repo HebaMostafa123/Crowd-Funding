@@ -18,13 +18,14 @@ def show(request,project_id):
     projectPics=ProjectPicture.objects.filter(project_id=project.id)
     #tags = Tag.objects.filter(tag_name=request.POST.get("search"))
     relatedTag=Tag.objects.filter(project_id=project.id)[0].tag_name
-    tags=Tag.objects.filter(tag_name=relatedTag)
+    tags=Tag.objects.filter(tag_name=relatedTag)[:3]
     #return HttpResponse(tags)
     filteredProjects=[]
     projectPic=[]
     projectDic=[]
     for tag in tags:
-        if tag.project_id!=project_id:
+        if tag.project_id!=int(project_id):
+            print()
             filteredProjects.append(UserProject.objects.get(id=tag.project_id))
         projectDic = projectZip(filteredProjects, projectPic)
     picArr=[]
