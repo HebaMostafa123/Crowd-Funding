@@ -14,12 +14,13 @@ def show(request,project_id):
 
     project = get_object_or_404(UserProject, id=project_id)
     projectPics=ProjectPicture.objects.filter(project_id=project.id)
-    picArr=[]
-    for pic in projectPics:       
-        picArr.append(pic.project_picture.url)
-    
+
+
+    # picArr=[]
+    # for pic in projectPics:
+    #     picArr.append(pic.project_picture.url)
+    #
     if request.method == "GET":
-        print("testing")
         form = ProjectCommentForm()
         reportForm = ProjectReportForm()
         rate = project.projectRated.all().aggregate(Avg('rate'))["rate__avg"]
@@ -28,7 +29,7 @@ def show(request,project_id):
 
 
         return render(request,"project/show.html",{'form':form,'reportForm':reportForm, 'project':project ,
-        'rate':rate, 'yellowRate': range(1, int(rate)+1), 'blackRate':range(int(rate+1),6),"pictures":picArr})
+        'rate':rate, 'yellowRate': range(1, int(rate)+1), 'blackRate':range(int(rate+1),6),"pictures":projectPics})
 
 
 def comment(request):
