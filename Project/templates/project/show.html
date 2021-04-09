@@ -2,100 +2,220 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <h1>
-        {{ project.title }}
-    </h1>
-    <p>
-        {{ project.details }}
-    </p>
-    <h1>{{ project.total_target }}</h1>
-    <h1>{{ project.category }}</h1>
-    {% for pic in pictures %}
-    <img src="{{ pic }}" alt="" style="width: 400px; height: 500px;">
-    {%endfor%}
 
+    <div class="card">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="preview col-md-6">
+                    <div class="preview-pic tab-content">
 
-    {% ifnotequal request.user.id project.owner_id %}
-
-        <div class="donate">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#donate">
-                donate project
-            </button>
-
-            <!-- Modal -->
-            <div class="modal  fade " id="donate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <section class="donors">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="donors_input">
-                                    <h2>DONATION NOW</h2>
-                                    {#                                   <form action="{% url 'report-project' %}"  method="POST">#}
-                                    {#    {%csrf_token%}#}
-                                    <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id"
-                                           value="{{ project.id }}">
-                                    <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id"
-                                           value="{{ user.id }}">
-
-                                    <p class="amount">
-
-                                        <input id="donateValue" type="number" name="donate">
-                                    </p>
-                                    <div id="donateMsg"></div>
-                                    <h5>
-                                    </h5>
-                                    <h4>
-                                    </h4>
-                                    <input type="submit" id="donateSubmit" value="DONATION NOW">
-                                    {#                            </form>#}
-                                </div>
-                            </div>
+                        <div class="tab-pane active" id="pic-{{ pictures.first.id }}"><img class="img-responsive"
+                                                                                           src="{{ pictures.first.project_picture.url }}"/>
                         </div>
+
+                        {% for pic in pictures|slice:"1:" %}
+                            <div class="tab-pane" id="pic-{{ pic.id }}"><img class="img-responsive"
+                                                                             src="{{ pic.project_picture.url }}"/></div>
+                        {% endfor %}
                     </div>
-                </section>
-            </div>
-        </div>
+                    <ul class="preview-thumbnail nav nav-tabs">
+                        <li class="active"><a data-target="#pic-{{ pictures.first.id }}" data-toggle="tab"><img
+                                class="img-responsive"
+                                src="{{ pictures.first.project_picture.url }}"/></a></li>
 
-        <br>
-
-        <div class="report">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#report">
-                report project
-            </button>
-
-            <!-- Modal -->
-            <div class="modal  fade " id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
-                            {#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-                        </div>
-                        <form action="{% url 'report-project' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" class="btn btn-success offset-5 mt-2" name="project_id"
-                                   value="{{ project.id }}">
-                            <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id"
-                                   value="{{ user.id }}">
-
-                            <div class="modal-body">
-                                <textarea name="report_body" rows="4" class="form-control"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                {#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
-                                <input type="submit" class="btn btn-primary" value="report">
-                            </div>
-                        </form>
-                    </div>
+                        {% for pic in pictures|slice:"1:" %}
+                            <li><a data-target="#pic-{{ pic.id }}" data-toggle="tab"><img class="img-responsive"
+                                                                                          src="{{ pic.project_picture.url }}"/></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
 
                 </div>
+                <div class="details col-md-6">
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="product-title">{{ project.title }}</h3>
+                            <div class="rating">
+                                <div class="stars">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <span class="review-no">41 reviews</span>
+                            </div>
+                            <p class="product-description">{{ project.details }}</p>
+                            <h4 class="price">total target: <span>${{ project.total_target }}</span></h4>
+                            <p class="vote"><strong>Category</strong> {{ project.category }}</p>
+
+
+                            <div class="action">
+                                {#                        {% ifnotequal request.user.id project.owner_id %}#}
+                                <div class="donate">
+                                    <button class="add-to-cart btn btn-default" data-toggle="modal"
+                                            data-target="#donate"
+                                            type="button">donate project
+                                    </button>
+                                    <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal  fade " id="donate" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <section class="donors">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="donors_input">
+                                                            <h2>DONATION NOW</h2>
+                                                            <form action="{% url 'report-project' %}" method="POST">
+                                                                {% csrf_token %}
+                                                                <input type="hidden"
+                                                                       class="btn btn-success offset-5 mt-2"
+                                                                       name="project_id"
+                                                                       value="{{ project.id }}">
+                                                                <input type="hidden"
+                                                                       class="btn btn-success offset-5 mt-2"
+                                                                       name="user_id"
+                                                                       value="{{ user.id }}">
+
+                                                                <p class="amount">
+                                                                    <input id="donateValue" type="number" name="donate">
+                                                                </p>
+                                                                <div id="donateMsg"></div>
+                                                                <h5>
+                                                                </h5>
+                                                                <h4>
+                                                                </h4>
+                                                                <input type="submit" id="donateSubmit"
+                                                                       value="DONATION NOW">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+                                <div class="report">
+
+                                    <div class="mt-100">
+                                        <button class="btn btn-danger btn btn-default" data-toggle="modal"
+                                                data-target="#report"
+                                                type="button">report project
+                                        </button>
+                                        <button class="btn btn-danger" type="button"><span class="fa fa-remove"></span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal  fade " id="report" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Enter your
+                                                        report</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <form action="{% url 'report-project' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" class="btn btn-success offset-5 mt-2"
+                                                           name="project_id"
+                                                           value="{{ project.id }}">
+                                                    <input type="hidden" class="btn btn-success offset-5 mt-2"
+                                                           name="user_id"
+                                                           value="{{ user.id }}">
+
+                                                    <div class="modal-body">
+                                                    <textarea name="report_body" rows="4"
+                                                              class="form-control"></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <input type="submit" class="btn btn-primary" value="report">
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                {#                        {% endifnotequal %}#}
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="col-md-6">
+                                <div class="card rate-container"><span>User rates</span>
+                                    <div class="card-body text-center"><span class="myratings">  {{ rate }}</span>
+                                        <h4 class="mt-1">Rate us</h4>
+                                        <fieldset class="rating"><input type="radio" id="star5" name="rating"
+                                                                        value="5"/><label class="full"
+                                                                                          for="star5"
+                                                                                          title="Awesome - 5 stars"></label>
+                                            <input type="radio" id="star4half" name="rating" value="4.5"/><label
+                                                    class="half"
+                                                    for="star4half"
+                                                    title="Pretty good - 4.5 stars"></label>
+                                            <input type="radio" id="star4" name="rating" value="4"/><label class="full"
+                                                                                                           for="star4"
+                                                                                                           title="Pretty good - 4 stars"></label>
+                                            <input type="radio" id="star3half" name="rating" value="3.5"/><label
+                                                    class="half"
+                                                    for="star3half"
+                                                    title="Meh - 3.5 stars"></label>
+                                            <input type="radio" id="star3" name="rating" value="3"/><label class="full"
+                                                                                                           for="star3"
+                                                                                                           title="Meh - 3 stars"></label>
+                                            <input type="radio" id="star2half" name="rating" value="2.5"/><label
+                                                    class="half"
+                                                    for="star2half"
+                                                    title="Kinda bad - 2.5 stars"></label>
+                                            <input type="radio" id="star2" name="rating" value="2"/><label class="full"
+                                                                                                           for="star2"
+                                                                                                           title="Kinda bad - 2 stars"></label>
+                                            <input type="radio" id="star1half" name="rating" value="1.5"/><label
+                                                    class="half"
+                                                    for="star1half"
+                                                    title="Meh - 1.5 stars"></label>
+                                            <input type="radio" id="star1" name="rating" value="1"/><label class="full"
+                                                                                                           for="star1"
+                                                                                                           title="Sucks big time - 1 star"></label>
+                                            <input type="radio" id="starhalf" name="rating" value="0.5"/><label
+                                                    class="half" for="starhalf"
+                                                    title="Sucks big time - 0.5 stars"></label>
+                                            <input type="radio" class="reset-option" name="rating" value="reset"/>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
             </div>
-
         </div>
-    {% endifnotequal %}
-
-
-
+    </div>
 
 
 
@@ -108,129 +228,79 @@
         {{ form|crispy }}
         <input type="submit" class="btn btn-success offset-5 mt-2" value="comment">
     </form>
-    <br>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card"><span>User rates</span>
-                <div class="card-body text-center"><span class="myratings">  {{ rate }}</span>
-                    <h4 class="mt-1">Rate us</h4>
-                    <fieldset class="rating"><input type="radio" id="star5" name="rating" value="5"/><label class="full"
-                                                                                                            for="star5"
-                                                                                                            title="Awesome - 5 stars"></label>
-                        <input type="radio" id="star4half" name="rating" value="4.5"/><label class="half"
-                                                                                             for="star4half"
-                                                                                             title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4"
-                                                                                       title="Pretty good - 4 stars"></label>
-                        <input type="radio" id="star3half" name="rating" value="3.5"/><label class="half"
-                                                                                             for="star3half"
-                                                                                             title="Meh - 3.5 stars"></label>
-                        <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3"
-                                                                                       title="Meh - 3 stars"></label>
-                        <input type="radio" id="star2half" name="rating" value="2.5"/><label class="half"
-                                                                                             for="star2half"
-                                                                                             title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2"
-                                                                                       title="Kinda bad - 2 stars"></label>
-                        <input type="radio" id="star1half" name="rating" value="1.5"/><label class="half"
-                                                                                             for="star1half"
-                                                                                             title="Meh - 1.5 stars"></label>
-                        <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1"
-                                                                                       title="Sucks big time - 1 star"></label>
-                        <input type="radio" id="starhalf" name="rating" value="0.5"/><label class="half" for="starhalf"
-                                                                                            title="Sucks big time - 0.5 stars"></label>
-                        <input type="radio" class="reset-option" name="rating" value="reset"/></fieldset>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 
     {% if project.user_comment.all %}
         {% for comment in project.projectCommented.all %}
-            <h1>{{ comment.user }}</h1>
-            <h1>{{ comment }}</h1>
-            <div class="reportComment">
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#commentreport{{ comment.id }}">
-                    report comment
-                </button>
-
-                <!-- Modal -->
-                <div class="modal  fade " id="commentreport{{ comment.id }}" tabindex="-1"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="media g-mb-30 media-comment">
+                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                             src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                            <div class="g-mb-15">
+                                <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ comment.user }}</h5>
+                                <span class="g-color-gray-dark-v4 g-font-size-12">{{ comment.created_at }}</span>
                             </div>
-                            <form action="{% url 'report-comment' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" class="btn btn-success offset-5 mt-2" name="commment_id"
-                                       value="{{ comment.id }}">
-                                <input type="hidden" class="btn btn-success offset-5 mt-2" name="user_id"
-                                       value="{{ user.id }}">
 
-                                <div class="modal-body">
-                                    <textarea name="report_body" rows="4" class="form-control"></textarea>
+                            <p>{{ comment }}.</p>
+
+
+                            <div class="reportComment">
+                                <button type="button" class="btn btn-danger pull-right" data-toggle="modal"
+                                        data-target="#commentreport{{ comment.id }}">
+                                    report comment
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal  fade " id="commentreport{{ comment.id }}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Enter your report</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{% url 'report-comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" class="btn btn-success offset-5 mt-2"
+                                                       name="commment_id"
+                                                       value="{{ comment.id }}">
+                                                <input type="hidden" class="btn btn-success offset-5 mt-2"
+                                                       name="user_id"
+                                                       value="{{ user.id }}">
+
+                                                <div class="modal-body">
+                                                    <textarea name="report_body" rows="4"
+                                                              class="form-control"></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close
+                                                    </button>
+                                                    <input type="submit" class="btn btn-primary" value="report">
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    {#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
-                                    <input type="submit" class="btn btn-primary" value="report">
-                                </div>
-                            </form>
+
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-
             </div>
 
-            <br>
         {% endfor %}
 
 
     {% endif %}
-    {#<div style="">#}
-    {##}
-    {#    <form action="" method="POST">#}
-    {#    {%csrf_token%}#}
-    {#    {{ reportForm.name.errors }}#}
-    {#    {{reportForm|crispy}}#}
-    {#    <input type="submit" class="btn btn-success offset-5 mt-2" value="report">#}
-    {#    </form>#}
-    {##}
-    {#</div>#}
-    <section class="letast_news">
-        <h2>RELATED PROJECTS</h2>
-        <div class="container">
-            <div class="row">
-
-                {% for project,pic in relatedPorjects.items %}
-
-                    <div class="col-md-4">
-                        <div class="single_news">
-                            <img style="width: 400px; height: 500px;" src="{{ pic }}" alt="">
-                            <div class="texts">
-                                start date:
-                                <p class="date">{{ project.start_date }}</p>
-                                end date:
-                                <p class="date">{{ project.end_date }}</p>
-                                    donation progress:
-                                <p class="date">{{ project.target_donate_percentage }}%</p>
-                                <h3>{{ project.title }}</h3>
-                                <p class="test">{{ project.details }} </p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-
-            </div>
-        </div>
-    </section>
 
 
 {% endblock content %}

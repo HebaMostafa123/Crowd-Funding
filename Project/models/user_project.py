@@ -29,7 +29,7 @@ class UserProject(models.Model):
 class ProjectComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projectCommenter")
     project= models.ForeignKey(UserProject, on_delete=models.CASCADE ,related_name="projectCommented")
-    comment_body= models.TextField()
+    comment_body= models.TextField(max_length=100)
 
     created_at= models.DateTimeField(default=datetime.now, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
