@@ -1,34 +1,36 @@
-{% extends "project/base.html" %}
+{% extends "project/base.html" %} {% block content %}
 
-{% block content %}
-
-    <a class="btn btn-primary" href="/project/form">Add new project</a>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">project name</th>
-        <th scope="col">details</th>
-        <th scope="col">total target</th>
-        <th scope="col">category</th>
-        <th scope="col" style="text-align: center;" colspan="3">action</th>
-      </tr>
+<a class="btn btn-primary" style="margin-bottom: 20px;" href="/project/form">Add new project</a>
+<table class="table table-striped" style="margin-bottom: 250px; ">
+    <thead class="text-light" style="background-color:rgba(0, 0, 0, 0.5); color: #fff;">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Project Name</th>
+            <th scope="col">Details</th>
+            <th scope="col">Total Target</th>
+            <th scope="col">Category</th>
+            <th scope="col" style="text-align: center;" colspan="4">Action</th>
+        </tr>
     </thead>
     <tbody>
-      <tr>
-        {%for project in projects %}
-        <th scope="row">{{forloop.counter}}</th>
-        <td>{{project.title}}</td>
-        <td>{{project.details}}</td>
-        <td>{{project.total_target}}</td>
-        <td>{{project.category}}</td>
-        <td><a href="/project/{{project.id}}" class="btn btn-info">view</a></td>
-        {% ifequal request.user.id project.owner_id %}
-        <td colspan="2"><a href="/project/{{project.id }}/edit" class="btn btn-danger"> update</a></td>
-        <td>  <a href="/project/{{project.id }}/delete" class="btn btn-success"> delete</a></td>
-       {% endifequal %}
-      </tr>
-      {%endfor%}
+        <tr>
+            {%for project in projects %}
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{project.title}}</td>
+            <td>{{project.details|safe|truncatewords:"10"|linebreaks}}
+                <a href="/project/{{ project.id }}">read more</a>
+            </td>
+
+            <td>{{project.total_target}}</td>
+            <td>{{project.category}}</td>
+            <td><a href="/project/{{project.id}}" class="btn btn-info">view</a></td>
+
+            <td colspan="2">{% ifequal request.user.id project.owner_id %}<a href="/project/{{project.id }}/edit" class="btn btn-danger"> update</a>{% endifequal %}</td>
+
+            <td>{% ifequal request.user.id project.owner_id %} <a href="/project/{{project.id }}/delete" class="btn btn-success"> delete</a>{% endifequal %}</td>
+
+        </tr>
+        {%endfor%}
     </tbody>
-  </table>
+</table>
 {% endblock content %}

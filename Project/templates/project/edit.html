@@ -1,16 +1,24 @@
-{% extends "project/base.html" %}
-{% load crispy_forms_tags %}
+{% extends "project/base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="">
+            <div class="card card-signin flex-row my-5" style="margin-bottom: 150px;">
+                <div class="card-img-left d-none d-md-flex">
+                    <!-- Background image for card set in CSS! -->
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title text-center" style="font-weight: bold; font-size: x-large;">Update Project Information</h2>
 
-{% block content %}
+                    <form action="{% url 'project_update' project.id %} " method="POST " class="form-signin ">
+                        {% csrf_token %} {{ form.name.errors }} {{ form|crispy }}
+                        <label for="tag ">Tags</label>
+                        <input type="text " value="{{tags}} " name="tags "> <br><br>
 
-<form action="{% url 'project_update' project.id %}" method="POST">
-    {%csrf_token%}
-    {{ form.name.errors }}
-
-    {{form|crispy}}
-    <input type="text " value="{{tags}}" name="tags">
-
-<input type="submit" class="btn btn-success offset-5 mt-2" value="submit">
-</form>
-
+                        <input type="submit " class="btn btn-success offset-5 mt-2 " value="Update " style="margin-bottom: 70px;margin-left: 400px;height: 50px; width: 450px; font-size: x-large; ">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

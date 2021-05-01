@@ -13,7 +13,7 @@ urlpatterns = [
     path("project/form", crowd_project.project_form),
     path("project/list", crowd_project.project_list, name="list"),
     path("project/form", crowd_project.project_form, name="form"),
-    url(r"^project/(?P<project_id>\d+)/$", showProject.show, name="hatoom"),
+    url(r"^project/(?P<project_id>\d+)/$", showProject.show, name="showProject"),
     path("project/comment", showProject.comment, name="comment"),
     url("project/rate", showProject.rate, name="rate"),
     url("project/donate", showProject.donate, name="donate"),
